@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "csstools.postcss",
+    "vue.volar",
+    "cpylua.language-postcss",
+    "vivaxy.vscode-conventional-commits",
+    "apollographql.vscode-apollo",
+    "antfu.unocss"
+  ]
+}
