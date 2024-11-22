@@ -8,18 +8,29 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "codegen": "graphql-codegen --config ./src/graphql/codegen.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.10",
+    "@graphql-codegen/plugin-helpers": "^5.1.0",
+    "@vue/apollo-composable": "^4.2.1",
     "@vueuse/core": "^11.2.0",
+    "graphql": "^16.9.0",
+    "graphql-tag": "^2.12.6",
+    "ts-poet": "^6.9.0",
     "vue": "^3.5.12"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/fragment-matcher": "^5.0.2",
+    "@graphql-codegen/schema-ast": "^4.1.0",
     "@unocss/eslint-plugin": "^0.63.6",
     "@vitejs/plugin-vue": "^5.1.4",
+    "bson-objectid": "^2.0.4",
     "eslint": "^9.14.0",
-    "typescript": "~5.6.2",
+    "typescript": "~5.6.3",
     "unocss": "^0.63.6",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",

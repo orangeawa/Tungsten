@@ -13,6 +13,7 @@ export default defineConfig({
       dts: true,
       dirs: [
         './composables/**',
+        './utils/**',
         'stores',
       ],
       vueTemplate: true,

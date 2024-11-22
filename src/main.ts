@@ -1,6 +1,14 @@
+import { DefaultApolloClient } from '@vue/apollo-composable'
 import { createApp } from 'vue'
 import App from './App.vue'
+import { apolloClient } from './graphql/apollo'
 import 'virtual:uno.css'
-import './style.css'
 
-createApp(App).mount('#app')
+const RootComponent = defineComponent({
+  setup() {
+    provide(DefaultApolloClient, apolloClient)
+    return () => h(App)
+  },
+})
+
+createApp(RootComponent).mount('#app')
