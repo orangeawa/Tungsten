@@ -21,6 +21,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    /* Below are extra settings manually */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts?tab=readme-ov-file#client-types
     "types": ["vite-plugin-vue-layouts/client"]
   },
