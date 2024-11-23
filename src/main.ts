@@ -1,4 +1,5 @@
 import { DefaultApolloClient } from '@vue/apollo-composable'
+import { createPinia } from 'pinia'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createApp } from 'vue'
 import { createWebHistory } from 'vue-router'
@@ -17,6 +18,8 @@ const router = createRouter({
   ]),
 })
 
+const pinia = createPinia()
+
 const RootComponent = defineComponent({
   setup() {
     provide(DefaultApolloClient, apolloClient)
@@ -24,4 +27,4 @@ const RootComponent = defineComponent({
   },
 })
 
-createApp(RootComponent).use(router).mount('#app')
+createApp(RootComponent).use(router).use(pinia).mount('#app')
