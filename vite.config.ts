@@ -16,9 +16,9 @@ export default defineConfig({
       imports: ['vue', '@vueuse/core', VueRouterAutoImports],
       dts: true,
       dirs: [
-        './composables/**',
-        './utils/**',
-        'stores',
+        'src/composables/**',
+        'src/utils/**',
+        'src/stores',
       ],
       vueTemplate: true,
       eslintrc: {

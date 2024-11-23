@@ -294,6 +294,8 @@
     "onBeforeRouteLeave": true,
     "onBeforeRouteUpdate": true,
     "useRoute": true,
-    "useRouter": true
+    "useRouter": true,
+    "pickFirstQuery": true,
+    "setSiteTitle": true
   }
 }
