@@ -19,7 +19,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts?tab=readme-ov-file#client-types
+    "types": ["vite-plugin-vue-layouts/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts","typed-router.d.ts"]
 }

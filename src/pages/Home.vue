@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <HelloWorld msg="1" />
+  <div>HomePage</div>
 </template>
 
 <style scoped>
