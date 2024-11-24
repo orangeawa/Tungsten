@@ -80,7 +80,7 @@ onUnmounted(() => {
     typed.destroy()
 })
 
-const version = import.meta.env.VITE_APP_VERSION || '0.0.0'
+const version = import.meta.env.VITE_APP_VERSION || '0.0.1'
 const commitHash = import.meta.env.VITE_COMMIT_HASH || '0000000'
 
 const hasExtension = computed(() => Object.keys(extensions.value).length > 0)
