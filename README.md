@@ -3,7 +3,6 @@
 ![Version](https://img.shields.io/github/package-json/v/PatchyVideo/Tungsten)
 ![License](https://img.shields.io/github/license/PatchyVideo/Tungsten)
 ![Commit activity](https://img.shields.io/github/commit-activity/m/PatchyVideo/Tungsten)
-![Lines of code](https://img.shields.io/tokei/lines/github/PatchyVideo/Tungsten?label=lines%20of%20code)
 ![Contributors](https://img.shields.io/github/contributors/PatchyVideo/Tungsten)
 
 > A modern frontend for [PatchyVideo/PatchyVideo](https://github.com/PatchyVideo/PatchyVideo).
