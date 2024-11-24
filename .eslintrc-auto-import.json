@@ -301,6 +301,19 @@
     "extensionTweaks": true,
     "extensions": true,
     "getYiyan": true,
-    "getYiyanArray": true
+    "getYiyanArray": true,
+    "useQuery": true,
+    "gql": true,
+    "/": true,
+    "@": true,
+    "a": true,
+    "g": true,
+    "l": true,
+    "p": true,
+    "q": true,
+    "r": true,
+    "Query": true,
+    "NProgress": true,
+    "schema": true
   }
 }

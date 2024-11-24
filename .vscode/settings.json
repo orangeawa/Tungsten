@@ -106,5 +106,9 @@
   ],
   // https://uvr.esm.is/introduction.html#setup See the follow WARNING section
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"]
+  "typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"],
+
+  // Disable auto imports, for auto-import plugin has installed
+  "typescript.suggest.autoImports": false,
+  "javascript.suggest.autoImports": false
 }

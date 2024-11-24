@@ -7,8 +7,11 @@ import { createRouter } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
 import App from './App.vue'
 import { apolloClient } from './graphql/apollo'
+import 'nprogress/nprogress.css'
 import 'virtual:uno.css'
 import '@/css'
+
+NProgress.start()
 
 const router = createRouter({
   history: createWebHistory(),
@@ -28,3 +31,5 @@ const RootComponent = defineComponent({
 })
 
 createApp(RootComponent).use(router).use(pinia).mount('#app')
+
+NProgress.done()

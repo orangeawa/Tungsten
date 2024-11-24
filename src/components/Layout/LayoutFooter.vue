@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import type { Query } from '@/graphql'
-import { useQuery } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
 import Typed from 'typed.js'
 
 const props = withDefaults(
@@ -100,11 +97,11 @@ const users = computed(() => result.value?.getStats.users ?? 0)
 
 <template>
   <div class="bg-gray-50 border-purple-300 border-t-solid mt-12">
-    <div class="flex flex-row flex-wrap justify-center py-8 mt-8">
+    <div class="flex flex-row flex-wrap justify-center py-8 mt-8 space-x-2">
       <div v-for="linkGroup in links" :key="linkGroup.key">
         <ul class="px-2 md:px-4 lg:px-8">
           <li>
-            <h1 class="font-semibold tracking-wide text-gray-900 py-1" v-text="linkGroup.key" />
+            <h2 class="font-semibold tracking-wide text-gray-900 py-1" v-text="linkGroup.key" />
           </li>
           <li v-for="link in linkGroup.links" :key="link.key">
             <a

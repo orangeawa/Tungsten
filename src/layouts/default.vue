@@ -5,7 +5,7 @@
 <template>
   <div>
     <LayoutNavTop />
-    <RouterView />
+    <RouterView class="max-w-500 mx-auto px-4" />
     <LayoutFooter />
   </div>
 </template>

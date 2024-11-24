@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    DateRelative: typeof import('./src/components/common/DateRelative.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LayoutFooter: typeof import('./src/components/Layout/LayoutFooter.vue')['default']
     LayoutNavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
@@ -15,8 +16,11 @@ declare module 'vue' {
     LayoutSearch: typeof import('./src/components/Layout/LayoutSearch.vue')['default']
     Logo: typeof import('./src/components/common/Logo.vue')['default']
     NavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
+    RelativeDate: typeof import('./src/components/common/RelativeDate.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VideoCard: typeof import('./src/components/Video/VideoCard.vue')['default']
+    VideoCardSiteIcon: typeof import('./src/components/Video/VideoCardSiteIcon.vue')['default']
+    VideoListHome: typeof import('./src/components/Video/VideoListHome.vue')['default']
   }
 }

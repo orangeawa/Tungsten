@@ -1,11 +1,12 @@
 /* Global */
-* {
+body {
   /* text-base */
   font-size: 16px;
   line-height: 1.5;
+  color: #4b5563;
 }
 @media screen and (max-width: 600px) {
-  * {
+  body {
     /* text-sm */
     font-size: 12px;
   }
@@ -22,8 +23,17 @@ a:hover {
 
 /* Input */
 input {
+  /* text-base */
+  font-size: 16px;
+  line-height: 1.5;
   /* Avoid over-height with h-full */
   box-sizing: border-box;
+}
+@media screen and (max-width: 600px) {
+  input {
+    /* text-sm */
+    font-size: 12px;
+  }
 }
 
 /* Scrollbar */

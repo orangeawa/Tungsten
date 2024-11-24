@@ -20,7 +20,27 @@ export default defineConfig({
     vue(),
     UnoCSS(),
     AutoImport({
-      imports: ['vue', '@vueuse/core', VueRouterAutoImports],
+      imports: [
+        'vue',
+        '@vueuse/core',
+        VueRouterAutoImports,
+        {
+          '@vue/apollo-composable': [
+            'useQuery',
+          ],
+          'graphql-tag': [
+            'gql',
+          ],
+          'nprogress': [
+            ['default', 'NProgress'],
+          ],
+        },
+        {
+          from: '@/graphql',
+          imports: ['Query', 'schema'],
+          type: true,
+        },
+      ],
       dts: true,
       dirs: [
         'src/composables/**',

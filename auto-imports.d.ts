@@ -6,7 +6,11 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const /: typeof import('from')['/']
+  const @: typeof import('from')['@']
   const EffectScope: typeof import('vue')['EffectScope']
+  const NProgress: typeof import('nprogress')['default']
+  const a: typeof import('from')['a']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -35,10 +39,12 @@ declare global {
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const extensionTweaks: typeof import('./src/utils/extension')['extensionTweaks']
   const extensions: typeof import('./src/utils/extension')['extensions']
+  const g: typeof import('from')['g']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getYiyan: typeof import('./src/utils/yiyan')['getYiyan']
   const getYiyanArray: typeof import('./src/utils/yiyan')['getYiyanArray']
+  const gql: typeof import('graphql-tag')['gql']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
@@ -48,6 +54,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const l: typeof import('from')['l']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const nextTick: typeof import('vue')['nextTick']
@@ -71,10 +78,13 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const p: typeof import('from')['p']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const pickFirstQuery: typeof import('./src/utils/route')['pickFirstQuery']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
+  const q: typeof import('from')['q']
+  const r: typeof import('from')['r']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
   const reactive: typeof import('vue')['reactive']
@@ -223,6 +233,7 @@ declare global {
   const usePreferredLanguages: typeof import('@vueuse/core')['usePreferredLanguages']
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const usePrevious: typeof import('@vueuse/core')['usePrevious']
+  const useQuery: typeof import('@vue/apollo-composable')['useQuery']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
@@ -300,6 +311,9 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { Query, schema } from '@/graphql'
+  import('@/graphql')
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -307,6 +321,7 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly NProgress: UnwrapRef<typeof import('nprogress')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -339,6 +354,7 @@ declare module 'vue' {
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getYiyan: UnwrapRef<typeof import('./src/utils/yiyan')['getYiyan']>
     readonly getYiyanArray: UnwrapRef<typeof import('./src/utils/yiyan')['getYiyanArray']>
+    readonly gql: UnwrapRef<typeof import('graphql-tag')['gql']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -523,6 +539,7 @@ declare module 'vue' {
     readonly usePreferredLanguages: UnwrapRef<typeof import('@vueuse/core')['usePreferredLanguages']>
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly usePrevious: UnwrapRef<typeof import('@vueuse/core')['usePrevious']>
+    readonly useQuery: UnwrapRef<typeof import('@vue/apollo-composable')['useQuery']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
