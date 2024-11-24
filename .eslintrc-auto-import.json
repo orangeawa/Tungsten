@@ -296,6 +296,11 @@
     "useRoute": true,
     "useRouter": true,
     "pickFirstQuery": true,
-    "setSiteTitle": true
+    "setSiteTitle": true,
+    "useUserStore": true,
+    "extensionTweaks": true,
+    "extensions": true,
+    "getYiyan": true,
+    "getYiyanArray": true
   }
 }

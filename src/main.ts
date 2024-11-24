@@ -6,14 +6,14 @@ import { createWebHistory } from 'vue-router'
 import { createRouter } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
 import App from './App.vue'
-
 import { apolloClient } from './graphql/apollo'
 import 'virtual:uno.css'
+import '@/css'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: setupLayouts([
-    { path: '/', redirect: '/Home' },
+    { path: '/', redirect: '/home' },
     ...routes,
   ]),
 })

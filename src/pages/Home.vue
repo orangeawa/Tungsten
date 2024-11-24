@@ -3,7 +3,9 @@ setSiteTitle()
 </script>
 
 <template>
-  <div>HomePage</div>
+  <div class="h-100vh">
+    HomePage
+  </div>
 </template>
 
 <style scoped>

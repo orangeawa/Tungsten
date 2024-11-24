@@ -3,6 +3,10 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "contributors": [
+    "Chino Mocha",
+    "Lurantis"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -19,6 +23,7 @@
     "graphql-tag": "^2.12.6",
     "pinia": "^2.2.6",
     "ts-poet": "^6.9.0",
+    "typed.js": "^2.1.0",
     "vue": "^3.5.12",
     "vue-router": "4"
   },
@@ -30,8 +35,13 @@
     "@graphql-codegen/schema-ast": "^4.1.0",
     "@unocss/eslint-plugin": "^0.63.6",
     "@vitejs/plugin-vue": "^5.1.4",
+    "autoprefixer": "^10.4.20",
     "bson-objectid": "^2.0.4",
     "eslint": "^9.14.0",
+    "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
+    "postcss-mixins": "^11.0.3",
+    "postcss-nested": "^7.0.2",
     "typescript": "~5.6.3",
     "unocss": "^0.63.6",
     "unplugin-auto-import": "^0.18.3",
