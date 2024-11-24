@@ -16,8 +16,8 @@ For testing GraphQL, head on to <https://patchyvideo.com/be/gql/graphiql>.
 
 ```bash
 # clone the repo
-$ gh repo clone PatchyVideo/tungsten # or `git clone https://github.com/PatchyVideo/tungsten`
-$ cd tungsten
+$ gh repo clone PatchyVideo/Tungsten # or `git clone https://github.com/PatchyVideo/Tungsten`
+$ cd Tungsten
 
 # install dependencies
 $ pnpm i
