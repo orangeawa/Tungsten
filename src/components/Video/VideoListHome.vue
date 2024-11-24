@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const config = computed(() => ({
-  rows: 1,
   query: '',
   order: 'latest',
   additionalConstraint: '',
+  limit: 10,
 }))
-const { result, loading } = useQuery<Query>(gql`
+const { result, loading, error } = useQuery<Query>(gql`
     query ($limit: Int!, $query: String!, $order: String!, $additionalConstraint: String) {
       listVideo(
         para: {
@@ -36,10 +36,10 @@ const { result, loading } = useQuery<Query>(gql`
   query: config.value.query,
   order: config.value.order,
   additionalConstraint: config.value.additionalConstraint,
-  limit: config.value.rows * 10,
+  limit: config.value.limit,
 })
 
-const videoResult = computed(() => result.value?.listVideo.videos || new Array<schema.Video | boolean>().fill(false))
+const videoResult = computed(() => result.value?.listVideo.videos || Array.from({ length: 10 }).fill(false))
 watchEffect(() => {
   if (loading.value) {
     if (!NProgress.isStarted())
@@ -56,7 +56,10 @@ watchEffect(() => {
   <h2 class="mb-0 border-b-solid border-purple-100">
     最新上传
   </h2>
-  <div class="flex flex-wrap justify-center md:justify-start -mx-2">
+  <div v-if="error">
+    <p>错误: {{ error.message }}</p>
+  </div>
+  <div v-else class="flex flex-wrap justify-center md:justify-start -mx-2">
     <VideoCard v-for="item in videoResult" :key="item" :video="item" />
   </div>
 </template>
