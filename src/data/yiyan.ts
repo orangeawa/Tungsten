@@ -41,6 +41,7 @@ const yiyan: string[] = [
   '$ sudo rm -rf /*',
   '$ curl https://patchyvideo.com/',
   '$ gh repo clone PatchyVideo/platinum',
+  '$ gh repo clone PatchyVideo/Tungsten',
   '$ gh repo clone PatchyVideo/PatchyVideo',
   '> console.log(\'TOUHOU GUICHU YINMAD\');',
 

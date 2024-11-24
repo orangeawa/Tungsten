@@ -122,7 +122,7 @@ const users = computed(() => result.value?.getStats.users ?? 0)
     <div class="text-center my-2 text-sm text-gray-600">
       <span>{{ `PatchyVideo 正在为${users}个像你一样的用户提供服务！` }}</span><br>
       <span><span>Tungsten v{{ version }}</span>(<a
-        :href="`https://github.com/PatchyVideo/platinum/commit/${commitHash}`"
+        :href="`https://github.com/PatchyVideo/tungsten/commit/${commitHash}`"
         :title="commitHash"
         target="_blank"
         rel="noopener noreferrer"

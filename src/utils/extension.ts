@@ -1,7 +1,7 @@
 import { useSessionStorage } from '@vueuse/core'
 
 export interface extData {
-  type: '__PATCHYVIDEO_PLATINUM_extension_installed'
+  type: '__PATCHYVIDEO_TUNGSTEN_extension_installed'
   version: 1
   name: string
   extVersion: string
@@ -38,7 +38,7 @@ addEventListener('message', (event) => {
     if (
       typeof event.data === 'object'
       && 'type' in event.data
-      && event.data.type === '__PATCHYVIDEO_PLATINUM_extension_installed'
+      && event.data.type === '__PATCHYVIDEO_TUNGSTEN_extension_installed'
     ) {
       const extInfo = event.data as extData
 
@@ -52,7 +52,7 @@ addEventListener('message', (event) => {
     console.error(e)
   }
 })
-postMessage('__PATCHYVIDEO_PLATINUM_pull_extension_info', '*')
+postMessage('__PATCHYVIDEO_TUNGSTEN_pull_extension_info', '*')
 setTimeout(() => {
   for (const extName in extensions.value) {
     if (!ticked.includes(extName))

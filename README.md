@@ -1,5 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# Contributing to PatchyVideo/platinum
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Repo Setup
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+Please note that in order to launch this repo, you'll need to install Node.js >=v20.
+
+This repo is using [pnpm](https://pnpm.io/) for package menagement,
+make sure to use pnpm while installing and linking dependencies.
+
+We recommend using [Visual Studio Code](https://code.visualstudio.com/) for code editing.
+Be sure to install recommended extensions.
+
+For testing GraphQL, head on to <https://patchyvideo.com/be/gql/graphiql>.
+
+### Commands
+
+```bash
+# clone the repo
+$ gh repo clone PatchyVideo/platinum # or `git clone https://github.com/PatchyVideo/platinum`
+$ cd platinum
+
+# install dependencies
+$ pnpm i
+
+# lint & format
+$ pnpm lint
+
+# launch nuxt dev server
+$ pnpm dev
+
+# build nuxt server
+$ pnpm build
+```
