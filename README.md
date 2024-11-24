@@ -1,33 +1,20 @@
-# Contributing to PatchyVideo/platinum
+# PatchyVideo Tungsten
 
-## Repo Setup
+![Version](https://img.shields.io/github/package-json/v/PatchyVideo/tungsten)
+![License](https://img.shields.io/github/license/PatchyVideo/tungsten)
+![Commit activity](https://img.shields.io/github/commit-activity/m/PatchyVideo/tungsten)
+![Lines of code](https://img.shields.io/tokei/lines/github/PatchyVideo/tungsten?label=lines%20of%20code)
+![Contributors](https://img.shields.io/github/contributors/PatchyVideo/tungsten)
 
-Please note that in order to launch this repo, you'll need to install Node.js >=v20.
+> A modern frontend for [PatchyVideo/PatchyVideo](https://github.com/PatchyVideo/PatchyVideo).
+> (Currently using [PatchyVideo/pvgql](https://github.com/PatchyVideo/pvgql) as backend.)
 
-This repo is using [pnpm](https://pnpm.io/) for package menagement,
-make sure to use pnpm while installing and linking dependencies.
+This is a **complete** rewrite of [PatchyVideo/patchyvideo-vue](https://github.com/PatchyVideo/patchyvideo-vue) and [PatchyVideo/platinum](https://github.com/PatchyVideo/platinum), aims to be lightweight, feature-rich and easier to maintain.
 
-We recommend using [Visual Studio Code](https://code.visualstudio.com/) for code editing.
-Be sure to install recommended extensions.
+## Contribution
 
-For testing GraphQL, head on to <https://patchyvideo.com/be/gql/graphiql>.
+See [Contributing Guide](https://github.com/PatchyVideo/tungsten/tree/main/CONTRIBUTING.md).
 
-### Commands
+## License
 
-```bash
-# clone the repo
-$ gh repo clone PatchyVideo/platinum # or `git clone https://github.com/PatchyVideo/platinum`
-$ cd platinum
-
-# install dependencies
-$ pnpm i
-
-# lint & format
-$ pnpm lint
-
-# launch nuxt dev server
-$ pnpm dev
-
-# build nuxt server
-$ pnpm build
-```
+MIT
