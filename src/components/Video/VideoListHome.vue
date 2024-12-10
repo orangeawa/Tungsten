@@ -53,13 +53,13 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h2 class="mb-0 border-b-solid border-purple-100">
+  <h2 class="mb-0 border-purple-100 border-b-solid">
     最新上传
   </h2>
   <div v-if="error">
     <p>错误: {{ error.message }}</p>
   </div>
-  <div v-else class="flex flex-wrap justify-center md:justify-start -mx-2">
+  <div v-else class="flex flex-wrap justify-center -mx-2 md:justify-start">
     <VideoCard v-for="item in videoResult" :key="item" :video="item" />
   </div>
 </template>

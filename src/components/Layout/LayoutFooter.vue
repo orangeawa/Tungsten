@@ -96,17 +96,17 @@ const users = computed(() => result.value?.getStats.users ?? 0)
 </script>
 
 <template>
-  <div class="bg-gray-50 border-purple-300 border-t-solid mt-12">
-    <div class="flex flex-row flex-wrap justify-center py-8 mt-8 space-x-2">
+  <div class="mt-12 border-purple-300 border-t-solid bg-gray-50">
+    <div class="mt-8 flex flex-row flex-wrap justify-center py-8 space-x-2">
       <div v-for="linkGroup in links" :key="linkGroup.key">
-        <ul class="px-2 md:px-4 lg:px-8">
+        <ul class="px-2 lg:px-8 md:px-4">
           <li>
-            <h2 class="font-semibold tracking-wide text-gray-900 py-1" v-text="linkGroup.key" />
+            <h2 class="py-1 text-gray-900 font-semibold tracking-wide" v-text="linkGroup.key" />
           </li>
           <li v-for="link in linkGroup.links" :key="link.key">
             <a
               v-if="link.href"
-              class="inline-block mt-1 whitespace-nowrap"
+              class="mt-1 inline-block whitespace-nowrap"
               :href="link.href"
               target="_blank"
               rel="noopener noreferrer"
@@ -116,10 +116,10 @@ const users = computed(() => result.value?.getStats.users ?? 0)
         </ul>
       </div>
     </div>
-    <div v-if="!small" class="text-center text-sm font-light font-sans whitespace-nowrap overflow-hidden">
+    <div v-if="!small" class="overflow-hidden whitespace-nowrap text-center text-sm font-light font-sans">
       <span ref="typedEl" />
     </div>
-    <div class="text-center my-2 text-sm text-gray-600">
+    <div class="my-2 text-center text-sm text-gray-600">
       <span>{{ `PatchyVideo 正在为${users}个像你一样的用户提供服务！` }}</span><br>
       <span><span>Tungsten v{{ version }}</span>(<a
         :href="`https://github.com/PatchyVideo/Tungsten/commit/${commitHash}`"

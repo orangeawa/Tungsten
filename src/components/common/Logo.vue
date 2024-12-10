@@ -14,13 +14,13 @@ const h2 = computed(() => props.larger + 48)
 </script>
 
 <template>
-  <div class="inline-flex flex-row items-center flex-nowrap">
+  <div class="inline-flex flex-row flex-nowrap items-center">
     <svg
       v-if="showIcon"
       version="1.2"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 2844 3778"
-      class="fill-current inline-block"
+      class="inline-block fill-current"
       :height="h1"
     >
       <path
@@ -57,7 +57,7 @@ const h2 = computed(() => props.larger + 48)
       viewBox="0 1000 5000 1800"
       overflow="visible"
       :height="h2"
-      class="fill-current inline-block -ml-2"
+      class="inline-block fill-current -ml-2"
     >
       <path
         fill="#FCD34D"

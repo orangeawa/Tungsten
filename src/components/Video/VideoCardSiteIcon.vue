@@ -10,6 +10,6 @@ const domain = computed(() => new URL(props.url).hostname)
   <img
     :src="`https://icons.duckduckgo.com/ip3/${domain}.ico`"
     :alt="domain"
-    class="inline-block object-cover overflow-hidden"
+    class="inline-block overflow-hidden object-cover"
   >
 </template>

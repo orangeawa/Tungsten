@@ -3,7 +3,7 @@
 
 <template>
   <div class="about p-5">
-    <h1 class="text-2xl mb-2">
+    <h1 class="mb-2 text-2xl">
       About Us
     </h1>
     <p class="text-lg">

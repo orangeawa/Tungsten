@@ -1,16 +1,84 @@
 <script setup lang="ts">
+import type { NavGroup } from '@/components/Layout/types.ts'
+
+const drawerOpen = ref(false)
+
+// ====== About navigation links ======
+
+const linkList = computed(() => {
+  const links: NavGroup[] = [
+    {
+      groupName: '主要',
+      links: [
+        {
+          name: '主页',
+          icon: 'i-mdi-home',
+          type: 'router',
+          to: '/',
+        },
+        {
+          name: '视频',
+          icon: 'i-mdi-video',
+          type: 'router',
+          to: '/video',
+        },
+        {
+          name: '播放列表',
+          icon: 'i-mdi-format-list-text',
+          type: 'router',
+          to: '/playlist-list',
+        },
+        {
+          name: '讨论板',
+          icon: 'i-mdi:message-minus-outline',
+          type: 'router',
+          to: '/video',
+        },
+        {
+          name: '用户排行榜',
+          icon: 'i-mdi:format-list-numbered',
+          type: 'router',
+          to: '/leaderboard',
+        },
+        {
+          name: '网站维基',
+          icon: 'i-mdi:wikipedia',
+          type: 'a',
+          url: 'https://patchyvideo.wiki/',
+        },
+      ],
+    },
+  ]
+  // todo: add more links，
+
+  // links.push(
+  //     {
+  //       groupName: '设置',
+  //       links:[
+  //         {
+  //           type: 'components',
+  //           name: '网站配色',
+  //           component: TestComponent
+  //         }
+  //       ]
+  //     }
+  // )
+  return links
+})
 </script>
 
 <template>
   <div
-    class="z-49 fixed flex inset-x-0 md:h-12 px-2 items-center shadow shadow-purple-100 bg-white justify-between h-10"
+    class="fixed inset-x-0 z-49 h-10 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12"
   >
     <!-- Logo & Slide Button -->
-    <div class="inline-flex items-center flex-nowrap space-x-2">
+    <div class="inline-flex flex-nowrap items-center space-x-2">
       <div
-        class="w-8 cursor-pointer transition transition-colors hover:bg-purple-200 h-8 rounded-full i-mdi-menu"
+        class="h-8 w-8 cursor-pointer rounded-full transition transition-colors hover:bg-purple-200"
+        :class="drawerOpen ? 'i-mdi-close' : 'i-mdi-menu'"
+        @click="drawerOpen = !drawerOpen"
       />
-      <RouterLink to="/" class="text-black hidden md:inline hover:text-inherit">
+      <RouterLink to="/" class="hidden text-black md:inline hover:text-inherit">
         <Logo />
       </RouterLink>
     </div>
@@ -21,6 +89,34 @@
   </div>
   <!-- Placeholder element to leave space below the navigation bar -->
   <div class="h-16" />
+
+  <!-- Drawer -->
+  <div
+    class="fixed bottom-0 top-12 flex transform transition-transform ease-in-out"
+    :class="{ '-translate-x-full': !drawerOpen }"
+  >
+    <!-- Menu -->
+    <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg">
+      <!-- LinkGroup -->
+      <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
+        <!-- Group name -->
+        <div class="text-sm c-gray">
+          {{ groupName }}
+        </div>
+        <!-- Links -->
+        <div class="flex flex-col gap-1">
+          <!-- Link -->
+          <LayoutNavTopLink
+            v-for="(link, i) in links"
+            :key="link.name"
+            :index="i"
+            :drawer-open="drawerOpen"
+            :data="link"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>

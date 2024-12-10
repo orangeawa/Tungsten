@@ -1,14 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="flex items-center ring ring-purple-300 bg-white md:h-9 justify-start rounded-lg w-90 ring-2 h-7">
+  <div class="h-7 w-90 flex items-center justify-start rounded-lg bg-white ring ring-2 ring-purple-300 md:h-9">
     <input
       type="text"
-      class="flex-1 h-full outline-none border-transparent rounded-lg px-2"
+      class="h-full flex-1 border-transparent rounded-lg px-2 outline-none"
       placeholder="搜索你想看的内容"
     >
     <button
-      class="hidden md:inline h-full px-3 text-purple-900 bg-purple-200 rounded-r-lg border-transparent"
+      class="hidden h-full border-transparent rounded-r-lg bg-purple-200 px-3 text-purple-900 md:inline"
       v-text="'搜索'"
     />
   </div>
