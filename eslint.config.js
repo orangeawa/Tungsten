@@ -6,4 +6,7 @@ export default antfu({
   ignores: [
     'tsconfig.*',
   ],
+  rules: {
+    'antfu/no-import-dist': 'off',
+  },
 })
