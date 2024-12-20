@@ -69,7 +69,7 @@ const linkList = computed(() => {
 
 <template>
   <div
-    class="fixed inset-x-0 z-49 h-10 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12"
+    class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12"
   >
     <!-- Logo & Slide Button -->
     <div class="inline-flex flex-nowrap items-center space-x-2">

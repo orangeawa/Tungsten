@@ -40,32 +40,27 @@ watch(() => drawerOpen, (n) => {
 <template>
   <div ref="el">
     <!-- pages router -->
-    <RouterLink
-      v-if="data.type === 'router'"
-      :to="data.to"
-      class="flex items-center gap-2 c-black no-underline"
-    >
-      <div :class="data.icon" />
-      <div>{{ data.name }}</div>
+    <RouterLink v-if="data.type === 'router'" :to="data.to" class="flex items-center gap-2 c-black no-underline">
+      <div class="text-xl" :class="data.icon" />
+      <div class="text-xl">
+        {{ data.name }}
+      </div>
     </RouterLink>
 
     <!-- external link -->
-    <a
-      v-else-if="data.type === 'a'"
-      :href="data.url"
-      class="flex items-center gap-2 c-black no-underline"
-    >
-      <div :class="data.icon" />
-      <div>{{ data.name }}</div>
+    <a v-else-if="data.type === 'a'" :href="data.url" class="flex items-center gap-2 c-black no-underline">
+      <div class="text-xl" :class="data.icon" />
+      <div class="text-xl">
+        {{ data.name }}
+      </div>
     </a>
 
     <!-- components -->
-    <div
-      v-else-if="data.type === 'components'"
-      class="w-full flex items-center gap-2 c-black"
-    >
-      <div :class="data.icon" />
-      <div>{{ data.name }}</div>
+    <div v-else-if="data.type === 'components'" class="w-full flex items-center gap-2 c-black">
+      <div class="text-xl" :class="data.icon" />
+      <div class="text-xl">
+        {{ data.name }}
+      </div>
       <component :is="data.component" />
     </div>
   </div>
