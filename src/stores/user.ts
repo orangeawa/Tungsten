@@ -1,5 +1,26 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
+interface UserStore {
+  profile: {
+    uid: string
+    username: string
+    image: string
+    desc: string
+    email: string
+    bind_qq: boolean
+    access_control_status: string
+  }
+  access_control: {
+    status: string
+    access_mode: string
+    allowed_ops: string[]
+    denied_ops: string[]
+  }
+  settings: {
+    blacklist: string[]
+  }
+}
+
 export const useUserStore = defineStore('user', () => {
   /**
    * Current name of the user.
@@ -10,9 +31,19 @@ export const useUserStore = defineStore('user', () => {
     savedName.value = name
   }
 
+  const auth = ref<UserStore | null>(null)
+  /**
+   * Refetch the user's data.
+   */
+  async function refetch() {
+    auth.value = await refetchProfile()
+  }
+
   return {
+    auth,
     setNewName,
     savedName,
+    refetch,
   }
 })
 

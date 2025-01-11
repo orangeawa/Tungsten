@@ -314,6 +314,10 @@
     "r": true,
     "Query": true,
     "NProgress": true,
-    "schema": true
+    "schema": true,
+    "getSession": true,
+    "login": true,
+    "userLogin": true,
+    "refetchProfile": true
   }
 }
