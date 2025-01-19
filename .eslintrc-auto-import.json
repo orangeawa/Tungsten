@@ -318,6 +318,9 @@
     "getSession": true,
     "login": true,
     "userLogin": true,
-    "refetchProfile": true
+    "refetchProfile": true,
+    "checkUsername": true,
+    "userSignup": true,
+    "checkEmail": true
   }
 }

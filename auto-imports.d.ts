@@ -13,6 +13,8 @@ declare global {
   const a: typeof import('from')['a']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const checkEmail: typeof import('./src/utils/userAuthManager')['checkEmail']
+  const checkUsername: typeof import('./src/utils/userAuthManager')['checkUsername']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -293,6 +295,7 @@ declare global {
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
   const userLogin: typeof import('./src/utils/userAuthManager')['userLogin']
+  const userSignup: typeof import('./src/utils/userAuthManager')['userSignup']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -328,6 +331,8 @@ declare module 'vue' {
     readonly NProgress: UnwrapRef<typeof import('nprogress')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly checkEmail: UnwrapRef<typeof import('./src/utils/userAuthManager')['checkEmail']>
+    readonly checkUsername: UnwrapRef<typeof import('./src/utils/userAuthManager')['checkUsername']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -602,6 +607,7 @@ declare module 'vue' {
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
     readonly userLogin: UnwrapRef<typeof import('./src/utils/userAuthManager')['userLogin']>
+    readonly userSignup: UnwrapRef<typeof import('./src/utils/userAuthManager')['userSignup']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

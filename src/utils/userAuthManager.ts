@@ -130,3 +130,96 @@ export async function refetchProfile(): Promise<UserStore> {
     throw new Error(`未知错误: ${result.status}`)
   }
 }
+
+/**
+ * 校验用户名是否存在
+ * @param {string} username 用户名
+ * @returns {Promise<boolean>} 存在返回 true
+ * @throws {Error} 网络错误或校验失败
+ */
+export async function checkUsername(username: string): Promise<boolean> {
+  const result: {
+    status: 'SUCCEED' | 'FAILED' | 'ERROR'
+    data: boolean
+  } = await fetchWithErrorHandling('https://patchyvideo.com/be/user/exists.do', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return result.data
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}
+
+/**
+ * 校验邮箱是否已经存在
+ * @param {string} email 邮箱
+ * @returns {Promise<boolean>} 存在则返回 true
+ * @throws {Error} 网络错误或校验失败
+ */
+export async function checkEmail(email: string): Promise<boolean> {
+  const result: {
+    status: 'SUCCEED' | 'FAILED' | 'ERROR'
+    data: boolean
+  } = await fetchWithErrorHandling('https://patchyvideo.com/be/user/email_avail.do', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return result.data
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}
+
+/**
+ * 注册用户
+ * @param {string} username 用户名
+ * @param {string} password 密码
+ * @param {string} session 会话令牌
+ * @param {string} email 邮箱
+ * @returns {Promise<boolean>} 注册成功返回 true
+ * @throws {Error} 网络错误或注册失败
+ */
+export async function userSignup(username: string, password: string, session: string, email: string): Promise<boolean> {
+  const result: {
+    status: 'SUCCEED' | 'FAILED' | 'ERROR'
+    data: { uid: string } | '.'
+  } = await fetchWithErrorHandling('https://patchyvideo.com/be/signup.do', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password, session, email }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return true
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}
