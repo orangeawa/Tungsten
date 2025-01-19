@@ -80,80 +80,74 @@ function validate() {
 </script>
 
 <route lang="yaml">
-  meta:
-    layout: login
+meta:
+  layout: login
 </route>
 
 <template>
-  <div class="login h-screen w-full bg-cover bg-bottom bg-no-repeat">
-    <div class="h-full flex items-center rounded-lg bg-white bg-opacity-30 shadow-2xl shadow-lg">
-      <div class="ml-60 w-96 flex flex-col items-center gap-4 border border-purple rounded-lg border-style-solid bg-white bg-opacity-70 p-8 shadow-2xl shadow-lg space-y-4">
-        <!-- header -->
-        <div class="m-b-6 flex items-center text-2xl text-gray-800 space-x-2">
-          <Logo :larger="8" />
-          <span class="ml-2 border-y-0 border-l-2 border-r-0 border-gray-600 border-style-solid pl-4 text-lg">注册</span>
-        </div>
+  <!-- header -->
+  <div class="m-b-6 flex items-center text-2xl text-gray-800 space-x-2">
+    <Logo :larger="8" />
+    <span class="ml-2 border-y-0 border-l-2 border-r-0 border-gray-600 border-style-solid pl-4 text-lg">注册</span>
+  </div>
 
-        <!-- form -->
-        <form
-          class="w-full space-y-4"
-          @submit.prevent="register"
-        >
-          <input
-            v-model="username"
-            class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
-            name="username"
-            type="text"
-            placeholder="用户名"
-            @blur="validate"
-          >
-          <input
-            v-model="email"
-            class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
-            name="email"
-            type="email"
-            placeholder="邮箱"
-            @blur="validate"
-          >
-          <input
-            v-model="password"
-            class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
-            name="password"
-            type="password"
-            placeholder="密码"
-            @blur="validate"
-          >
-          <input
-            v-model="confirmPassword"
-            class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
-            name="confirmPassword"
-            type="password"
-            placeholder="确认密码"
-            @blur="validate"
-          >
+  <!-- form -->
+  <form
+    class="w-full space-y-4"
+    @submit.prevent="register"
+  >
+    <input
+      v-model="username"
+      class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
+      name="username"
+      type="text"
+      placeholder="用户名"
+      @blur="validate"
+    >
+    <input
+      v-model="email"
+      class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
+      name="email"
+      type="email"
+      placeholder="邮箱"
+      @blur="validate"
+    >
+    <input
+      v-model="password"
+      class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
+      name="password"
+      type="password"
+      placeholder="密码"
+      @blur="validate"
+    >
+    <input
+      v-model="confirmPassword"
+      class="w-full border-b-purple rounded-lg border-x-none border-t-none px-2 py-2 outline-none"
+      name="confirmPassword"
+      type="password"
+      placeholder="确认密码"
+      @blur="validate"
+    >
 
-          <button class="w-full rounded-md border-none bg-purple-500 py-2 text-xl text-white dark:bg-purple-600 disabled:bg-purple-300 hover:bg-purple-600 focus:outline-none dark:hover:bg-purple-700 disabled:dark:bg-purple-400 disabled:hover:bg-purple-300 disabled:dark:hover:bg-purple-400">
-            <span v-if="loading">
-              注册中...
-            </span>
-            <span v-else>
-              注册
-            </span>
-          </button>
-        </form>
+    <button class="w-full rounded-md border-none bg-purple-500 py-2 text-xl text-white dark:bg-purple-600 disabled:bg-purple-300 hover:bg-purple-600 focus:outline-none dark:hover:bg-purple-700 disabled:dark:bg-purple-400 disabled:hover:bg-purple-300 disabled:dark:hover:bg-purple-400">
+      <span v-if="loading">
+        注册中...
+      </span>
+      <span v-else>
+        注册
+      </span>
+    </button>
+  </form>
 
-        <!-- errMsg -->
-        <div v-if="errMsg" class="text-sm text-red-500">
-          {{ errMsg }}
-        </div>
+  <!-- errMsg -->
+  <div v-if="errMsg" class="text-sm text-red-500">
+    {{ errMsg }}
+  </div>
 
-        <div class="flex justify-center text-sm text-purple-600 -mt-2 dark:text-purple-300">
-          <RouterLink to="/login">
-            已有账号？去登录
-          </RouterLink>
-        </div>
-      </div>
-    </div>
+  <div class="flex justify-center text-sm text-purple-600 -mt-2 dark:text-purple-300">
+    <RouterLink to="/login">
+      已有账号？去登录
+    </RouterLink>
   </div>
 </template>
 
