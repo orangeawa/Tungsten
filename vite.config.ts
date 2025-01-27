@@ -1,5 +1,6 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
+import simpleGit from 'simple-git'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -7,52 +8,70 @@ import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import Layouts from 'vite-plugin-vue-layouts'
+import { version } from './package.json'
 
 // https://vite.dev/config/
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  plugins: [
-    VueRouter({}),
-    vue(),
-    UnoCSS(),
-    AutoImport({
-      imports: [
-        'vue',
-        '@vueuse/core',
-        VueRouterAutoImports,
-        {
-          '@vue/apollo-composable': [
-            'useQuery',
-          ],
-          'graphql-tag': [
-            'gql',
-          ],
-          'nprogress': [
-            ['default', 'NProgress'],
-          ],
-        },
-        {
-          from: '@/graphql',
-          imports: ['Query', 'schema'],
-          type: true,
-        },
-      ],
-      dts: true,
-      dirs: [
-        'src/composables/**',
-        'src/utils/**',
-        'src/stores',
-      ],
-      vueTemplate: true,
-      eslintrc: {
-        enabled: true,
+export default defineConfig(async ({ mode }) => {
+  const data = {
+    mode,
+    isDev: mode !== 'production',
+    isProd: mode === 'production',
+    version,
+    gitLatest: (await simpleGit().log({ maxCount: 1 })).latest || { hash: 'unknown', date: new Date().toISOString() },
+    date: new Date(),
+  }
+
+  return defineConfig({
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
       },
-    }),
-    Components({}),
-    Layouts(),
-  ],
+    },
+    define: {
+      '__DEV__': JSON.stringify(mode !== 'production'),
+      'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
+      'import.meta.env.VITE_COMMIT_HASH': JSON.stringify(data.gitLatest.hash),
+      'import.meta.env.VITE_APP_BUILDTIME': JSON.stringify(data.date.toISOString()),
+    },
+    plugins: [
+      VueRouter({}),
+      vue(),
+      UnoCSS(),
+      AutoImport({
+        imports: [
+          'vue',
+          '@vueuse/core',
+          VueRouterAutoImports,
+          {
+            '@vue/apollo-composable': [
+              'useQuery',
+            ],
+            'graphql-tag': [
+              'gql',
+            ],
+            'nprogress': [
+              ['default', 'NProgress'],
+            ],
+          },
+          {
+            from: '@/graphql',
+            imports: ['Query', 'schema'],
+            type: true,
+          },
+        ],
+        dts: true,
+        dirs: [
+          'src/composables/**',
+          'src/utils/**',
+          'src/stores',
+        ],
+        vueTemplate: true,
+        eslintrc: {
+          enabled: true,
+        },
+      }),
+      Components({}),
+      Layouts(),
+    ],
+  })
 })

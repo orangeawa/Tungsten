@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Index: typeof import('./src/components/form/Index.vue')['default']
     LayoutFooter: typeof import('./src/components/Layout/LayoutFooter.vue')['default']
     LayoutNavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
     LayoutNavTopLink: typeof import('./src/components/Layout/LayoutNavTopLink.vue')['default']
