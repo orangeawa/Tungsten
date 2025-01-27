@@ -95,7 +95,7 @@ export async function userLogin(username: string, password: string, session: str
     return true
   }
   else if (result.status === 'FAILED' && result.dataerr) {
-    throw new Error(`执行失败，原因: ${result.dataerr.reason}`)
+    throw new Error('登录失败，请检查用户名/邮箱或密码是否正确')
   }
   else {
     throw new Error(`未知错误: ${result.status}`)
