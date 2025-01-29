@@ -13,8 +13,8 @@ declare global {
   const a: typeof import('from')['a']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const checkEmail: typeof import('./src/api/userAuthManager')['checkEmail']
-  const checkUsername: typeof import('./src/api/userAuthManager')['checkUsername']
+  const checkEmail: typeof import('./src/apis/userAuthManager')['checkEmail']
+  const checkUsername: typeof import('./src/apis/userAuthManager')['checkUsername']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -44,7 +44,7 @@ declare global {
   const g: typeof import('from')['g']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getSession: typeof import('./src/api/userAuthManager')['getSession']
+  const getSession: typeof import('./src/apis/userAuthManager')['getSession']
   const getYiyan: typeof import('./src/utils/yiyan')['getYiyan']
   const getYiyanArray: typeof import('./src/utils/yiyan')['getYiyanArray']
   const gql: typeof import('graphql-tag')['gql']
@@ -102,7 +102,7 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
-  const refetchProfile: typeof import('./src/api/userAuthManager')['refetchProfile']
+  const refetchProfile: typeof import('./src/apis/userAuthManager')['refetchProfile']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
@@ -294,8 +294,8 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
-  const userLogin: typeof import('./src/api/userAuthManager')['userLogin']
-  const userSignup: typeof import('./src/api/userAuthManager')['userSignup']
+  const userLogin: typeof import('./src/apis/userAuthManager')['userLogin']
+  const userSignup: typeof import('./src/apis/userAuthManager')['userSignup']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -331,8 +331,8 @@ declare module 'vue' {
     readonly NProgress: UnwrapRef<typeof import('nprogress')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly checkEmail: UnwrapRef<typeof import('./src/api/userAuthManager')['checkEmail']>
-    readonly checkUsername: UnwrapRef<typeof import('./src/api/userAuthManager')['checkUsername']>
+    readonly checkEmail: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkEmail']>
+    readonly checkUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkUsername']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -361,7 +361,7 @@ declare module 'vue' {
     readonly extensions: UnwrapRef<typeof import('./src/utils/extension')['extensions']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
-    readonly getSession: UnwrapRef<typeof import('./src/api/userAuthManager')['getSession']>
+    readonly getSession: UnwrapRef<typeof import('./src/apis/userAuthManager')['getSession']>
     readonly getYiyan: UnwrapRef<typeof import('./src/utils/yiyan')['getYiyan']>
     readonly getYiyanArray: UnwrapRef<typeof import('./src/utils/yiyan')['getYiyanArray']>
     readonly gql: UnwrapRef<typeof import('graphql-tag')['gql']>
@@ -414,7 +414,7 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
-    readonly refetchProfile: UnwrapRef<typeof import('./src/api/userAuthManager')['refetchProfile']>
+    readonly refetchProfile: UnwrapRef<typeof import('./src/apis/userAuthManager')['refetchProfile']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
@@ -606,8 +606,8 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
-    readonly userLogin: UnwrapRef<typeof import('./src/api/userAuthManager')['userLogin']>
-    readonly userSignup: UnwrapRef<typeof import('./src/api/userAuthManager')['userSignup']>
+    readonly userLogin: UnwrapRef<typeof import('./src/apis/userAuthManager')['userLogin']>
+    readonly userSignup: UnwrapRef<typeof import('./src/apis/userAuthManager')['userSignup']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

@@ -61,6 +61,7 @@ export default defineConfig(async ({ mode }) => {
         ],
         dts: true,
         dirs: [
+          'src/apis/**',
           'src/composables/**',
           'src/utils/**',
           'src/stores',
