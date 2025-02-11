@@ -22,27 +22,20 @@ interface UserStore {
 }
 
 export const useUserStore = defineStore('user', () => {
-  /**
-   * Current name of the user.
-   */
-  const savedName = ref('')
-
-  function setNewName(name: string) {
-    savedName.value = name
-  }
-
   const auth = ref<UserStore | null>(null)
   /**
    * Refetch the user's data.
    */
   async function refetch() {
     auth.value = await refetchProfile()
+    // eslint-disable-next-line no-console
+    console.log('auth', auth.value)
   }
+
+  refetch()
 
   return {
     auth,
-    setNewName,
-    savedName,
     refetch,
   }
 })
