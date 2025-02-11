@@ -2,7 +2,7 @@
 const props = defineProps<{
   video: schema.Video | boolean
   // Minimum width, note the unit is rem, range 50~100, see in uno.config.ts
-  minWidth: number
+  minWidth?: number
 }>()
 
 const biliVideoPart = computed(() => {
