@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
   video: schema.Video | boolean
+  // Minimum width, note the unit is rem, range 50~100, see in uno.config.ts
+  minWidth: number
 }>()
 
 const biliVideoPart = computed(() => {
@@ -31,7 +33,7 @@ function formatTime(time: string) {
 </script>
 
 <template>
-  <div class="m-2 w-[calc(50%-1rem)] md:w-70">
+  <div class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]" :class="props.minWidth && `w-${props.minWidth}`">
     <!-- UI Loading -->
     <div v-if="typeof props.video === 'boolean'" class="space-y-1">
       <div class="aspect-ratio-16/10 w-full rounded bg-gray-200" />

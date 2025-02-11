@@ -10,4 +10,8 @@ export default defineConfig({
       },
     }),
   ],
+  // https://unocss.dev/config/#safelist
+  safelist: [
+    ...Array.from({ length: 100 }, (_, i) => `w-${i + 1}`),
+  ],
 })
