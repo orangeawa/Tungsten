@@ -4,6 +4,7 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 const httpLink = createHttpLink({
   // You should use an absolute URL here
   uri: 'https://patchyvideo.com/be/gql/graphql',
+  credentials: 'include',
 })
 
 // Cache implementation
