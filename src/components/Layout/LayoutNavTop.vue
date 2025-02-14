@@ -78,12 +78,12 @@ const linkList = computed(() => {
         :class="drawerOpen ? 'i-mdi-close' : 'i-mdi-menu'"
         @click="drawerOpen = !drawerOpen"
       />
-      <RouterLink to="/" class="hidden text-black md:inline hover:text-inherit">
+      <RouterLink to="/" class="hidden text-black xl:inline hover:text-inherit">
         <Logo />
       </RouterLink>
     </div>
 
-    <LayoutNavTopSearch class="max-w-2/3" />
+    <LayoutNavTopSearch class="absolute left-1/2 max-w-2/3 lg:max-w-150 -translate-x-1/2" />
 
     <LayoutNavTopUserHome />
   </div>
