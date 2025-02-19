@@ -135,7 +135,7 @@ const users = computed(() => result.value?.getStats.users ?? 0)
               .join(', ')}`
         "
       >({{ Object.values(extensions).length }} ext installed)</span></template>. </span><span>
-        © 2019-2022 VoileLabs. Released under the
+        © 2019-2025 VoileLabs. Released under the
         <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT License</a>.</span>
     </div>
   </div>
