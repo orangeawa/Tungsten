@@ -19,5 +19,6 @@ declare module 'vue' {
     VideoCard: typeof import('./src/components/Video/VideoCard.vue')['default']
     VideoCardSiteIcon: typeof import('./src/components/Video/VideoCardSiteIcon.vue')['default']
     VideoListHome: typeof import('./src/components/Video/VideoListHome.vue')['default']
+    VideoPagination: typeof import('./src/components/Video/VideoPagination.vue')['default']
   }
 }

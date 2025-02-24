@@ -57,5 +57,10 @@
     "vite": "^5.4.9",
     "vite-plugin-vue-layouts": "^0.11.0",
     "vue-tsc": "^2.1.6"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "vue-demi"
+    ]
   }
 }

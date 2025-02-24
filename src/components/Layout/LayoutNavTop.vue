@@ -20,7 +20,7 @@ const linkList = computed(() => {
           name: '视频',
           icon: 'i-mdi-video',
           type: 'router',
-          to: '/video',
+          to: '/video-list',
         },
         {
           name: '播放列表',
