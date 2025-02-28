@@ -102,6 +102,7 @@ watch(offset, () => {
 
     <VideoPagination
       v-model:offset="offset"
+      class="mt-4 justify-around md:justify-center"
       :limit="limit"
       :total="result?.listVideo.count || 0"
     />

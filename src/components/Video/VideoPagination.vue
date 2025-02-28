@@ -22,6 +22,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:offset'])
 
+const gotoPage = ref(1)
+
 // Calculate current page number
 const currentPage = computed(() => {
   return Math.floor(props.offset / props.limit) + 1
@@ -65,6 +67,7 @@ const paginationList = computed(() => {
 function handlePageChange(page: number) {
   if (page < 1 || page > pageCount.value)
     return
+  gotoPage.value = page
   emit('update:offset', (page - 1) * props.limit)
 }
 
@@ -77,31 +80,33 @@ function handlePrevPage() {
 function handleNextPage() {
   handlePageChange(currentPage.value + 1)
 }
+
+// handleGotoPage
+
+function handleGotoPage() {
+  handlePageChange(gotoPage.value)
+}
 </script>
 
 <template>
-  <div class="flex items-center gap-1">
+  <div class="flex items-center gap-3">
     <div class="video-pagination__item">
       <button
-        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded bg-white px-1 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
-        :disabled="currentPage === 1"
-        @click="handlePrevPage"
+        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
+        :disabled="currentPage === 1" @click="handlePrevPage"
       >
         上一页
       </button>
     </div>
 
-    <div
-      v-for="(page, index) in paginationList"
-      :key="index"
-      class="video-pagination__item"
-    >
+    <!-- <div> -->
+    <div v-for="(page, index) in paginationList" :key="index" class="video-pagination__item hidden md:block">
       <template v-if="page === '...'">
         <span class="h-8 min-w-8 inline-flex items-center justify-center text-gray-500">...</span>
       </template>
       <template v-else>
         <button
-          class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded px-1 transition-all duration-300 hover:border-purple-500 hover:bg-purple-100"
+          class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded border-solid px-1 transition-all duration-300 hover:border-purple-500 hover:bg-purple-100"
           :class="{ 'text-white bg-purple-500 border-purple-500': page === currentPage, 'bg-white border-gray-300': page !== currentPage }"
           @click="handlePageChange(page as number)"
         >
@@ -109,12 +114,19 @@ function handleNextPage() {
         </button>
       </template>
     </div>
+    <!-- </div> -->
+
+    <!-- goto -->
+    <div class="block md:hidden">
+      Go to:
+      <input v-model="gotoPage" class="h-8 w-16 border border-gray-300 rounded border-solid px-2 focus:border-purple-500 focus:outline-none" type="number" name="" @blur="handleGotoPage">
+      共{{ Math.ceil(total / limit) }}页
+    </div>
 
     <div class="video-pagination__item">
       <button
-        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded bg-white px-1 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
-        :disabled="currentPage === pageCount"
-        @click="handleNextPage"
+        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
+        :disabled="currentPage === pageCount" @click="handleNextPage"
       >
         下一页
       </button>
