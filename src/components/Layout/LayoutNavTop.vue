@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavGroup } from '@/components/Layout/types.ts'
+import DarkModeSwitch from './DarkModeSwitch.vue'
 
 const drawerOpen = ref(false)
 
@@ -51,25 +52,26 @@ const linkList = computed(() => {
   ]
   // todo: add more links，
 
-  // links.push(
-  //     {
-  //       groupName: '设置',
-  //       links:[
-  //         {
-  //           type: 'components',
-  //           name: '网站配色',
-  //           component: TestComponent
-  //         }
-  //       ]
-  //     }
-  // )
+  links.push(
+    {
+      groupName: 'Settings',
+      links: [
+        {
+          type: 'components',
+          name: '暗夜模式',
+          icon: 'i-mdi-theme-light-dark',
+          component: DarkModeSwitch,
+        },
+      ],
+    },
+  )
   return links
 })
 </script>
 
 <template>
   <div
-    class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12"
+    class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12 dark:bg-gray-800"
   >
     <!-- Logo & Slide Button -->
     <div class="inline-flex flex-nowrap items-center space-x-2">
@@ -78,7 +80,7 @@ const linkList = computed(() => {
         :class="drawerOpen ? 'i-mdi-close' : 'i-mdi-menu'"
         @click="drawerOpen = !drawerOpen"
       />
-      <RouterLink to="/" class="hidden text-black xl:inline hover:text-inherit">
+      <RouterLink to="/" class="hidden text-black xl:inline dark:text-white hover:text-inherit">
         <Logo />
       </RouterLink>
     </div>
@@ -96,7 +98,7 @@ const linkList = computed(() => {
     :class="{ '-translate-x-full': !drawerOpen }"
   >
     <!-- Menu -->
-    <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg">
+    <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-gray-800">
       <!-- LinkGroup -->
       <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
         <!-- Group name -->
