@@ -2,7 +2,23 @@
 import type { NavGroup } from '@/components/Layout/types.ts'
 import DarkModeSwitch from './DarkModeSwitch.vue'
 
+const navContainer = shallowRef<HTMLElement | null>(null)
+
 const drawerOpen = ref(false)
+
+useEventListener(
+  document,
+  'click',
+  (e: MouseEvent) => {
+    if (!navContainer.value)
+      return
+
+    const target = e.target as HTMLElement
+
+    if (!navContainer.value.contains(target) && drawerOpen.value)
+      drawerOpen.value = false
+  },
+)
 
 // ====== About navigation links ======
 
@@ -70,56 +86,53 @@ const linkList = computed(() => {
 </script>
 
 <template>
-  <div
-    class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12 dark:bg-gray-800"
-  >
-    <!-- Logo & Slide Button -->
-    <div class="inline-flex flex-nowrap items-center space-x-2">
-      <div
-        class="h-8 w-8 cursor-pointer rounded-full transition transition-colors hover:bg-purple-200"
-        :class="drawerOpen ? 'i-mdi-close' : 'i-mdi-menu'"
-        @click="drawerOpen = !drawerOpen"
-      />
-      <RouterLink to="/" class="hidden text-black xl:inline dark:text-white hover:text-inherit">
-        <Logo />
-      </RouterLink>
+  <div ref="navContainer">
+    <div
+      class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12 dark:bg-gray-800"
+    >
+      <!-- Logo & Slide Button -->
+      <div class="inline-flex flex-nowrap items-center space-x-2">
+        <div
+          class="h-8 w-8 cursor-pointer rounded-full transition transition-colors hover:bg-purple-200"
+          :class="drawerOpen ? 'i-mdi-close' : 'i-mdi-menu'" @click="drawerOpen = !drawerOpen"
+        />
+        <RouterLink to="/" class="hidden text-black xl:inline dark:text-white hover:text-inherit">
+          <Logo />
+        </RouterLink>
+      </div>
+
+      <LayoutNavTopSearch class="absolute left-1/2 max-w-2/3 lg:max-w-150 -translate-x-1/2" />
+
+      <LayoutNavTopUserHome />
     </div>
+    <!-- Placeholder element to leave space below the navigation bar -->
+    <div class="h-16" />
 
-    <LayoutNavTopSearch class="absolute left-1/2 max-w-2/3 lg:max-w-150 -translate-x-1/2" />
-
-    <LayoutNavTopUserHome />
-  </div>
-  <!-- Placeholder element to leave space below the navigation bar -->
-  <div class="h-16" />
-
-  <!-- Drawer -->
-  <div
-    class="fixed bottom-0 top-12 flex transform transition-transform ease-in-out"
-    :class="{ '-translate-x-full': !drawerOpen }"
-  >
-    <!-- Menu -->
-    <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-gray-800">
-      <!-- LinkGroup -->
-      <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
-        <!-- Group name -->
-        <div class="text-sm c-gray">
-          {{ groupName }}
-        </div>
-        <!-- Links -->
-        <div class="flex flex-col gap-1">
-          <!-- Link -->
-          <LayoutNavTopLink
-            v-for="(link, i) in links"
-            :key="link.name"
-            :index="i"
-            :drawer-open="drawerOpen"
-            :data="link"
-          />
+    <!-- Drawer -->
+    <div
+      class="fixed bottom-0 top-12 flex transform transition-transform ease-in-out"
+      :class="{ '-translate-x-full': !drawerOpen }"
+    >
+      <!-- Menu -->
+      <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-gray-800">
+        <!-- LinkGroup -->
+        <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
+          <!-- Group name -->
+          <div class="text-sm c-gray">
+            {{ groupName }}
+          </div>
+          <!-- Links -->
+          <div class="flex flex-col gap-1">
+            <!-- Link -->
+            <LayoutNavTopLink
+              v-for="(link, i) in links" :key="link.name" :index="i" :drawer-open="drawerOpen"
+              :data="link"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
