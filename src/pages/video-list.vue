@@ -87,7 +87,7 @@ watch(offset, () => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl">
+  <div class="mx-auto max-w-7xl dark:text-gray-400">
     <h1>视频列表</h1>
     <div class="text-sm text-gray-500">
       共 {{ result?.listVideo.count }} 个视频

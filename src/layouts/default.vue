@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="dark:bg-dark">
     <LayoutNavTop />
     <RouterView class="mx-auto max-w-500 px-4" />
     <LayoutFooter />

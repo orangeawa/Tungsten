@@ -49,7 +49,7 @@ function formatTime(time: string) {
         >
       </div>
       <div class="space-y-1">
-        <div class="overflow-ellipsis text-gray-600 transition transition-colors hover:text-purple-600" :class="biliVideoPart && biliVideoPartNeeded ? 'h-4.5 md:h-6 line-clamp-1' : 'h-9 md:h-12 line-clamp-2'">
+        <div class="overflow-ellipsis text-gray-600 transition transition-colors dark:text-gray-400 hover:text-purple-600" :class="biliVideoPart && biliVideoPartNeeded ? 'h-4.5 md:h-6 line-clamp-1' : 'h-9 md:h-12 line-clamp-2'">
           {{ props.video.item.title }}
         </div>
         <div

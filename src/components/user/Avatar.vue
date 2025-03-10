@@ -14,7 +14,7 @@ const imgUrl = computed(() => {
 </script>
 
 <template>
-  <img :src="imgUrl" class="bg-gray-300 dark:bg-gray-600 dark:brightness-90 dark:filter">
+  <img :src="imgUrl" class="bg-gray-300 dark:bg-gray-600">
 </template>
 
 <style lang="postcss" scoped></style>

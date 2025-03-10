@@ -53,7 +53,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h2 class="mb-0 border-purple-100 border-b-solid">
+  <h2 class="mb-0 border-purple-100 border-b-solid dark:border-gray-600">
     最新上传
   </h2>
   <div v-if="error">

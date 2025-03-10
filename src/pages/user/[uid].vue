@@ -70,7 +70,7 @@ watchEffect(() => {
         <h2 class="text-2xl font-bold">
           {{ auth?.username || 'Unknown User' }}
         </h2>
-        <p class="text-sm opacity-80">
+        <p class="text-sm">
           注册时间: {{ formattedDate }}
         </p>
       </div>

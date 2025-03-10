@@ -15,9 +15,13 @@ useEventListener(
 
     const target = e.target as HTMLElement
 
-    if (!navContainer.value.contains(target) && drawerOpen.value)
+    if (!navContainer.value.contains(target) && drawerOpen.value) {
+      e.stopPropagation()
+      e.preventDefault()
       drawerOpen.value = false
+    }
   },
+  { passive: true },
 )
 
 // ====== About navigation links ======
@@ -88,7 +92,7 @@ const linkList = computed(() => {
 <template>
   <div ref="navContainer">
     <div
-      class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12 dark:bg-gray-800"
+      class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white px-2 shadow shadow-purple-100 md:h-12 dark:bg-dark-600 dark:shadow-gray-600"
     >
       <!-- Logo & Slide Button -->
       <div class="inline-flex flex-nowrap items-center space-x-2">
@@ -114,7 +118,7 @@ const linkList = computed(() => {
       :class="{ '-translate-x-full': !drawerOpen }"
     >
       <!-- Menu -->
-      <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-gray-800">
+      <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-dark-600">
         <!-- LinkGroup -->
         <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
           <!-- Group name -->

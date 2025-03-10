@@ -92,7 +92,7 @@ function handleGotoPage() {
   <div class="flex items-center gap-3">
     <div class="video-pagination__item">
       <button
-        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
+        class="dark:disabled:border-pu h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed dark:border-gray-600 hover:border-purple-500 dark:bg-dark-200 disabled:bg-gray-50 dark:text-gray disabled:text-gray-400 hover:text-purple-500 dark:disabled:border-gray-700 dark:disabled:bg-dark-400"
         :disabled="currentPage === 1" @click="handlePrevPage"
       >
         上一页
@@ -106,8 +106,8 @@ function handleGotoPage() {
       </template>
       <template v-else>
         <button
-          class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded border-solid px-1 transition-all duration-300 hover:border-purple-500 hover:bg-purple-100"
-          :class="{ 'text-white bg-purple-500 border-purple-500': page === currentPage, 'bg-white border-gray-300': page !== currentPage }"
+          class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-100 rounded border-solid px-1 transition-all duration-300 hover:border-purple-500 hover:bg-purple-100 dark:hover:bg-dark-300 dark:hover:text-purple-500"
+          :class="{ 'text-white  bg-purple-500 border-purple-500': page === currentPage, 'bg-white dark:bg-dark-200 dark:text-gray border-gray-300 dark:border-gray-600': page !== currentPage }"
           @click="handlePageChange(page as number)"
         >
           {{ page }}
@@ -125,7 +125,7 @@ function handleGotoPage() {
 
     <div class="video-pagination__item">
       <button
-        class="h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed hover:border-purple-500 disabled:bg-gray-50 disabled:text-gray-400 hover:text-purple-500"
+        class="dark:disabled:border-pu h-8 min-w-8 inline-flex cursor-pointer items-center justify-center border border-gray-300 rounded border-solid bg-white px-4 transition-all duration-300 disabled:cursor-not-allowed dark:border-gray-600 hover:border-purple-500 dark:bg-dark-200 disabled:bg-gray-50 dark:text-gray disabled:text-gray-400 hover:text-purple-500 dark:disabled:border-gray-700 dark:disabled:bg-dark-400"
         :disabled="currentPage === pageCount" @click="handleNextPage"
       >
         下一页
