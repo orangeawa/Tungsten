@@ -31,20 +31,40 @@ interface UserStore {
   }
 }
 
-/**
- * 通用请求处理函数
- * @param {string} url 请求的地址
- * @param {RequestInit} options 请求选项
- * @returns {Promise<any>} 返回解析后的 JSON 数据
- */
-async function fetchWithErrorHandling(url: string, options: RequestInit): Promise<any> {
-  const res = await fetch(url, options)
+// 公共常量
+const API_BASE = 'https://patchyvideo.com/be'
+const HEADERS = { 'Content-Type': 'application/json' }
 
+/**
+ * 通用请求处理函数（使用泛型保证类型安全）
+ * @param {string} url 请求地址
+ * @param {RequestInit} options 请求选项
+ * @returns {Promise<T>} 返回解析后的 JSON 数据
+ */
+async function fetchWithErrorHandling<T>(url: string, options: RequestInit): Promise<T> {
+  const res = await fetch(url, options)
   if (!res.ok) {
     throw new Error(`网络请求错误，状态: ${res.status}`)
   }
-
   return res.json()
+}
+
+/**
+ * 统一处理响应结果，减少重复代码
+ * @param result 响应对象，包含 status 和 data
+ * @returns 返回 data
+ * @throws 当状态为 FAILED 或 ERROR 时抛出异常
+ */
+function handleResponse<T>(result: { status: 'SUCCEED' | 'FAILED' | 'ERROR', data?: T }): T {
+  if (result.status === 'SUCCEED' && result.data !== undefined) {
+    return result.data
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
 }
 
 /**
@@ -53,12 +73,10 @@ async function fetchWithErrorHandling(url: string, options: RequestInit): Promis
  * @throws {Error} 网络错误或会话获取失败
  */
 export async function getSession(): Promise<string> {
-  const result: Session = await fetchWithErrorHandling('https://patchyvideo.com/be/auth/get_session.do', {
+  const result = await fetchWithErrorHandling<Session>(`${API_BASE}/auth/get_session.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({ type: 'LOGIN' }),
   })
 
@@ -82,12 +100,10 @@ export async function getSession(): Promise<string> {
  * @throws {Error} 网络错误或登录失败
  */
 export async function userLogin(username: string, password: string, session: string): Promise<boolean> {
-  const result: LoginResponse = await fetchWithErrorHandling('https://patchyvideo.com/be/login.do', {
+  const result = await fetchWithErrorHandling<LoginResponse>(`${API_BASE}/login.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({ username, password, session }),
   })
 
@@ -95,7 +111,7 @@ export async function userLogin(username: string, password: string, session: str
     return true
   }
   else if (result.status === 'FAILED' && result.dataerr) {
-    throw new Error('登录失败，请检查用户名/邮箱或密码是否正确')
+    throw new Error(`登录失败: ${result.dataerr.reason}`)
   }
   else {
     throw new Error(`未知错误: ${result.status}`)
@@ -108,27 +124,13 @@ export async function userLogin(username: string, password: string, session: str
  * @throws {Error} 网络错误或获取失败
  */
 export async function refetchProfile(): Promise<UserStore> {
-  const result: {
-    status: 'SUCCEED' | 'FAILED' | 'ERROR'
-    data?: UserStore
-  } = await fetchWithErrorHandling('https://patchyvideo.com/be/user/myprofile.do', {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR', data?: UserStore }>(`${API_BASE}/user/myprofile.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({}),
   })
-
-  if (result.status === 'SUCCEED' && result.data) {
-    return result.data
-  }
-  else if (result.status === 'FAILED') {
-    throw new Error('执行失败')
-  }
-  else {
-    throw new Error(`未知错误: ${result.status}`)
-  }
+  return handleResponse(result)
 }
 
 /**
@@ -138,27 +140,13 @@ export async function refetchProfile(): Promise<UserStore> {
  * @throws {Error} 网络错误或校验失败
  */
 export async function checkUsername(username: string): Promise<boolean> {
-  const result: {
-    status: 'SUCCEED' | 'FAILED' | 'ERROR'
-    data: boolean
-  } = await fetchWithErrorHandling('https://patchyvideo.com/be/user/exists.do', {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR', data: boolean }>(`${API_BASE}/user/exists.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({ username }),
   })
-
-  if (result.status === 'SUCCEED') {
-    return result.data
-  }
-  else if (result.status === 'FAILED') {
-    throw new Error('执行失败')
-  }
-  else {
-    throw new Error(`未知错误: ${result.status}`)
-  }
+  return handleResponse(result)
 }
 
 /**
@@ -168,27 +156,13 @@ export async function checkUsername(username: string): Promise<boolean> {
  * @throws {Error} 网络错误或校验失败
  */
 export async function checkEmail(email: string): Promise<boolean> {
-  const result: {
-    status: 'SUCCEED' | 'FAILED' | 'ERROR'
-    data: boolean
-  } = await fetchWithErrorHandling('https://patchyvideo.com/be/user/email_avail.do', {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR', data: boolean }>(`${API_BASE}/user/email_avail.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({ email }),
   })
-
-  if (result.status === 'SUCCEED') {
-    return result.data
-  }
-  else if (result.status === 'FAILED') {
-    throw new Error('执行失败')
-  }
-  else {
-    throw new Error(`未知错误: ${result.status}`)
-  }
+  return handleResponse(result)
 }
 
 /**
@@ -201,16 +175,58 @@ export async function checkEmail(email: string): Promise<boolean> {
  * @throws {Error} 网络错误或注册失败
  */
 export async function userSignup(username: string, password: string, session: string, email: string): Promise<boolean> {
-  const result: {
-    status: 'SUCCEED' | 'FAILED' | 'ERROR'
-    data: { uid: string } | '.'
-  } = await fetchWithErrorHandling('https://patchyvideo.com/be/signup.do', {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR', data: { uid: string } | '.' }>(`${API_BASE}/signup.do`, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: HEADERS,
     body: JSON.stringify({ username, password, session, email }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return true
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}
+
+/**
+ * 修改用户名
+ * @param {string} username 新的用户名
+ * @returns {Promise<boolean>} 修改成功返回 true
+ * @throws {Error} 网络错误或修改失败
+ */
+export async function changeUsername(username: string): Promise<boolean> {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR' }>(`${API_BASE}/user/changename.do`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: HEADERS,
+    body: JSON.stringify({ name: username }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return true
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('执行失败')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}
+
+/**
+ * 修改简介
+ */
+export async function changeDesc(desc: string): Promise<boolean> {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR' }>(`${API_BASE}/user/changedesc.do`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: HEADERS,
+    body: JSON.stringify({ desc }),
   })
 
   if (result.status === 'SUCCEED') {

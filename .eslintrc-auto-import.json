@@ -321,6 +321,8 @@
     "refetchProfile": true,
     "checkUsername": true,
     "userSignup": true,
-    "checkEmail": true
+    "checkEmail": true,
+    "changeUsername": true,
+    "changeDesc": true
   }
 }

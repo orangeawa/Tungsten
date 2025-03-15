@@ -13,6 +13,8 @@ declare global {
   const a: typeof import('from')['a']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const changeDesc: typeof import('./src/apis/userAuthManager')['changeDesc']
+  const changeUsername: typeof import('./src/apis/userAuthManager')['changeUsername']
   const checkEmail: typeof import('./src/apis/userAuthManager')['checkEmail']
   const checkUsername: typeof import('./src/apis/userAuthManager')['checkUsername']
   const computed: typeof import('vue')['computed']
@@ -331,6 +333,8 @@ declare module 'vue' {
     readonly NProgress: UnwrapRef<typeof import('nprogress')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly changeDesc: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeDesc']>
+    readonly changeUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeUsername']>
     readonly checkEmail: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkEmail']>
     readonly checkUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkUsername']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>

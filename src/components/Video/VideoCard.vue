@@ -36,9 +36,9 @@ function formatTime(time: string) {
   <div class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]" :class="props.minWidth && `w-${props.minWidth}`">
     <!-- UI Loading -->
     <div v-if="typeof props.video === 'boolean'" class="space-y-1">
-      <div class="aspect-ratio-16/10 w-full rounded bg-gray-200" />
-      <div class="h-9 w-full rounded bg-gray-200 md:h-12" />
-      <div class="h-4 w-full rounded bg-gray-200" />
+      <div class="aspect-ratio-16/10 w-full rounded bg-gray-200 dark:bg-dark-200" />
+      <div class="h-9 w-full rounded bg-gray-200 md:h-12 dark:bg-dark-200" />
+      <div class="h-4 w-full rounded bg-gray-200 dark:bg-dark-200" />
     </div>
     <!-- UI Display video message -->
     <RouterLink v-else :to="`/video/${props.video.id}`" class="no-underline space-y-1">
