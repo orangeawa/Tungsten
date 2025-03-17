@@ -17,7 +17,6 @@ useEventListener(
 
     if (!navContainer.value.contains(target) && drawerOpen.value) {
       e.stopPropagation()
-      e.preventDefault()
       drawerOpen.value = false
     }
   },

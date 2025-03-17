@@ -51,8 +51,10 @@ async function fetchWithErrorHandling<T>(url: string, options: RequestInit): Pro
 
 /**
  * 统一处理响应结果，减少重复代码
- * @param result 响应对象，包含 status 和 data
- * @returns 返回 data
+ * @param {{ status: 'SUCCEED' | 'FAILED' | 'ERROR', data?: T }} result 响应对象，包含 status 和 data
+ * @param {'SUCCEED'|'FAILED'|'ERROR'} result.status 响应状态
+ * @param {T=} result.data 响应数据
+ * @returns {T} 返回 data
  * @throws 当状态为 FAILED 或 ERROR 时抛出异常
  */
 function handleResponse<T>(result: { status: 'SUCCEED' | 'FAILED' | 'ERROR', data?: T }): T {

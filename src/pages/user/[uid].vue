@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+
+const toast = useToast()
 // 获取路由参数
 const route = useRoute()
 const uid = computed(() => {
@@ -9,7 +11,7 @@ const uid = computed(() => {
 
 // ======Show user info======
 // 使用 GraphQL 查询
-const { result, loading, error } = useQuery<Query>(gql`
+const { result, loading, error, refetch } = useQuery<Query>(gql`
     query($uid: String!){
         getUser(para:{
             uid:$uid
@@ -46,26 +48,38 @@ const formattedDate = computed(() => {
 const userStore = useUserStore()
 const { auth: myAuth } = storeToRefs(userStore)
 
-const myUid = computed(() => myAuth.value?.profile.uid)
-const isMe = computed(() => myUid.value === uid.value)
+const isMe = computed(() => myAuth.value?.profile.uid === uid.value)
+const isEdit = ref(false)
 
 // edit username
 async function updateUsername(e: FocusEvent) {
   const target = e.target as HTMLElement
   const username = target.textContent?.trim() || ''
+  isEdit.value = false
 
   if (username === auth.value?.username)
     return
+
   if (!username) {
     target.textContent = auth.value?.username || 'Unknown User'
     return
   }
-  const usernameExists = await checkUsername(username)
-  if (usernameExists) {
-    target.textContent = auth.value?.username || 'Unknown User'
-    return
+
+  try {
+    const usernameExists = await checkUsername(username)
+    if (usernameExists) {
+      toast.error('用户名已存在')
+      return
+    }
+
+    const changeUsernameState = await changeUsername(username)
+    if (changeUsernameState)
+      refetch()
   }
-  changeUsername(username)
+  catch (error) {
+    toast.error((error as Error).message)
+    // target.textContent = auth.value?.username || 'Unknown User'
+  }
 }
 
 // edit desc
@@ -75,7 +89,14 @@ function updateDesc(e: FocusEvent) {
 
   if (desc === auth.value?.desc)
     return
-  changeDesc(desc)
+
+  NProgress.start()
+  changeDesc(desc).then((res) => {
+    if (res)
+      refetch()
+  }).finally(() => {
+    NProgress.done()
+  })
 }
 
 // update password
@@ -130,9 +151,10 @@ async function updatePassword() {
   if (!validate())
     return
   passwordState.value = 2
-  loading.value = true
+  NProgress.start()
   try {
     await changePassword(passwordform.oldPassword, passwordform.newPassword)
+    toast.success('密码已更新')
     passwordMsg.value[2] = '密码已更新'
   }
   catch (error) {
@@ -140,7 +162,7 @@ async function updatePassword() {
     passwordMsg.value[1] = (error as Error).message
   }
   finally {
-    loading.value = false
+    NProgress.done()
   }
 }
 // ====== Loding ======
@@ -169,12 +191,21 @@ watchEffect(() => {
       <!-- 用户头像和昵称 -->
       <Avatar
         class="h-20 w-20 rounded-full transition-all duration-300"
-        :image="auth?.image"
+        :image="auth?.image || 'default'"
       />
       <div class="ml-6">
-        <h2 class="text-2xl font-bold" :contenteditable="isMe" @blur="updateUsername">
-          {{ auth?.username || 'Unknown User' }}
-        </h2>
+        <div class="flex items-center gap-4">
+          <h2
+            class="text-2xl font-bold outline-none transition-all duration-300"
+            :class="isEdit && 'bg-white/20 p-x-2  rounded'"
+            :contenteditable="isMe && isEdit"
+            @blur="updateUsername"
+          >
+            {{ auth?.username || 'Unknown User' }}
+          </h2>
+          <div v-if="isMe" class="i-mdi:edit text-2xl" @click="isEdit = !isEdit" />
+        </div>
+
         <p class="text-sm">
           注册时间: {{ formattedDate }}
         </p>
@@ -188,8 +219,9 @@ watchEffect(() => {
           简介
         </h2>
         <p
-          class="text-gray-700 dark:text-gray-300"
+          class="border border-transparent text-gray-700 transition-all duration-300 dark:text-gray-300"
           :contenteditable="isMe"
+          :class="isMe && 'focus:bg-purple/20 focus:ring-1 focus:ring-purple/80 hover:bg-purple-2/30 hover:ring-1 hover:ring-purple/40 dark:hover:bg-white/20 focus:p-x-2  dark:hover:shadow-[0_0_0_1px_rgba(255,255,255,0.3)] dark:focus:shadow-[0_0_0_1px_rgba(255,255,255,0.5)] rounded focus:outline-none dark:focus:bg-white/20'"
           @blur="updateDesc"
         >
           {{ auth?.desc || 'No description available.' }}
@@ -237,7 +269,7 @@ watchEffect(() => {
             id="old-password"
             v-model="passwordform.oldPassword"
             type="password"
-            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 outline-none transition-all duration-300 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
           >
           <!-- New password -->
           <label for="new-password" class="block max-w-md text-sm text-gray-700 font-medium dark:text-gray-300">
@@ -247,7 +279,7 @@ watchEffect(() => {
             id="new-password"
             v-model="passwordform.newPassword"
             type="password"
-            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 outline-none transition-all duration-300 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
           >
           <!-- Confirm password -->
           <label for="confirm-password" class="block max-w-md text-sm text-gray-700 font-medium dark:text-gray-300">
@@ -257,12 +289,12 @@ watchEffect(() => {
             id="confirm-password"
             v-model="passwordform.confirmPassword"
             type="password"
-            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 outline-none transition-all duration-300 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
           >
 
           <div>
             <p
-              class="m-0 p-none text-sm text-gray-600 dark:text-gray-400"
+              class="m-0 p-none text-sm text-gray-600 transition-all duration-300 dark:text-gray-400"
               :class="passwordMsgColor"
             >
               {{ passwordMsg[passwordState] }}

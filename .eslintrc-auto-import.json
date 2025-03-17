@@ -324,6 +324,7 @@
     "checkEmail": true,
     "changeUsername": true,
     "changeDesc": true,
-    "changePassword": true
+    "changePassword": true,
+    "useToast": true
   }
 }

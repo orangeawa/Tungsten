@@ -52,6 +52,7 @@ export default defineConfig(async ({ mode }) => {
             'nprogress': [
               ['default', 'NProgress'],
             ],
+            'vue-toastification': ['useToast'],
           },
           {
             from: '@/graphql',
