@@ -239,3 +239,25 @@ export async function changeDesc(desc: string): Promise<boolean> {
     throw new Error(`未知错误: ${result.status}`)
   }
 }
+
+/**
+ * 修改密码
+ */
+export async function changePassword(oldPassword: string, newPassword: string): Promise<boolean> {
+  const result = await fetchWithErrorHandling<{ status: 'SUCCEED' | 'FAILED' | 'ERROR' }>(`${API_BASE}/user/changepass.do`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: HEADERS,
+    body: JSON.stringify({ old_pass: oldPassword, new_pass: newPassword }),
+  })
+
+  if (result.status === 'SUCCEED') {
+    return true
+  }
+  else if (result.status === 'FAILED') {
+    throw new Error('请检查旧密码是否正确')
+  }
+  else {
+    throw new Error(`未知错误: ${result.status}`)
+  }
+}

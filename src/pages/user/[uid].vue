@@ -7,6 +7,7 @@ const uid = computed(() => {
   return params.uid || ''
 })
 
+// ======Show user info======
 // 使用 GraphQL 查询
 const { result, loading, error } = useQuery<Query>(gql`
     query($uid: String!){
@@ -40,16 +41,16 @@ const formattedDate = computed(() => {
   }).format(new Date(auth.value.meta.createdAt))
 })
 
+// ======Edit user info======
 // 获取用户数据，用于判断是否为当前用户
 const userStore = useUserStore()
 const { auth: myAuth } = storeToRefs(userStore)
 
 const myUid = computed(() => myAuth.value?.profile.uid)
-
 const isMe = computed(() => myUid.value === uid.value)
 
-// 更新用户名
-function updateUsername(e: FocusEvent) {
+// edit username
+async function updateUsername(e: FocusEvent) {
   const target = e.target as HTMLElement
   const username = target.textContent?.trim() || ''
 
@@ -59,9 +60,15 @@ function updateUsername(e: FocusEvent) {
     target.textContent = auth.value?.username || 'Unknown User'
     return
   }
+  const usernameExists = await checkUsername(username)
+  if (usernameExists) {
+    target.textContent = auth.value?.username || 'Unknown User'
+    return
+  }
   changeUsername(username)
 }
 
+// edit desc
 function updateDesc(e: FocusEvent) {
   const target = e.target as HTMLElement
   const desc = target.textContent?.trim() || ''
@@ -71,6 +78,72 @@ function updateDesc(e: FocusEvent) {
   changeDesc(desc)
 }
 
+// update password
+const isEditPassword = ref(false)
+const passwordform = reactive({
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
+const passwordState = ref<0 | 1 | 2>(0)
+const passwordMsg = ref({
+  0: '确保其至少包含 6 个字符且不多于 64 个字符。',
+  1: '',
+  2: '校验通过',
+})
+const passwordMsgColor = computed(() => {
+  switch (passwordState.value) {
+    case 0:
+      return 'text-gray-600 dark:text-gray-400'
+    case 1:
+      return 'text-red-600 dark:text-red-400'
+    case 2:
+      return 'text-green-600 dark:text-green-400'
+  }
+
+  return ' text-white'
+})
+
+function validate() {
+  if (!passwordform.oldPassword) {
+    passwordMsg.value[1] = '旧密码不能为空'
+    return false
+  }
+  if (!passwordform.newPassword) {
+    passwordMsg.value[1] = '新密码不能为空'
+    return false
+  }
+  if (passwordform.newPassword.length < 6 || passwordform.newPassword.length > 64) {
+    passwordMsg.value[1] = '新密码长度至少为6个字符, 最多为64个字符'
+    return false
+  }
+  if (passwordform.newPassword !== passwordform.confirmPassword) {
+    passwordMsg.value[1] = '两次输入的密码不一致'
+    return false
+  }
+  return true
+}
+
+async function updatePassword() {
+  passwordState.value = 1
+  validate()
+  if (!validate())
+    return
+  passwordState.value = 2
+  loading.value = true
+  try {
+    await changePassword(passwordform.oldPassword, passwordform.newPassword)
+    passwordMsg.value[2] = '密码已更新'
+  }
+  catch (error) {
+    passwordState.value = 1
+    passwordMsg.value[1] = (error as Error).message
+  }
+  finally {
+    loading.value = false
+  }
+}
+// ====== Loding ======
 // 监听加载状态并控制进度条
 watchEffect(() => {
   if (loading.value) { // 如果数据正在加载
@@ -145,24 +218,59 @@ watchEffect(() => {
       </div>
 
       <!-- edit password -->
-      <div v-if="false" class="mt-8">
-        <h2 class="mb-2 text-xl font-semibold">
-          修改密码
-        </h2>
-        <div class="flex items-center space-x-2">
-          <input
-            type="password"
-            class="w-1/2 border border-gray-300 rounded p-2 dark:border-gray-700"
-            placeholder="New Password"
-          >
-          <input
-            type="password"
-            class="w-1/2 border border-gray-300 rounded p-2 dark:border-gray-700"
-            placeholder="Confirm Password"
-          >
-          <button class="rounded bg-purple-500 p-2 text-white hover:bg-purple-600">
+      <div v-if="isMe" class="mt-8">
+        <div class="mb-2 flex items-center justify-between">
+          <h2 class="text-xl font-semibold">
             修改密码
+          </h2>
+          <button class="border border-fuchsia-2 rounded border-solid bg-white p-x-3 p-y-2 text-gray-700 dark:border-gray-6 dark:bg-dark-5 hover:bg-fuchsia-1 dark:text-gray-300 dark:hover:bg-dark-4" @click="isEditPassword = !isEditPassword">
+            {{ isEditPassword ? '取消' : '修改密码' }}
           </button>
+        </div>
+
+        <div v-if="isEditPassword" class="m-t-6 flex flex-col gap-4">
+          <!-- Old password -->
+          <label for="old-password" class="block max-w-md text-sm text-gray-700 font-medium dark:text-gray-300">
+            旧密码
+          </label>
+          <input
+            id="old-password"
+            v-model="passwordform.oldPassword"
+            type="password"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+          >
+          <!-- New password -->
+          <label for="new-password" class="block max-w-md text-sm text-gray-700 font-medium dark:text-gray-300">
+            新密码
+          </label>
+          <input
+            id="new-password"
+            v-model="passwordform.newPassword"
+            type="password"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+          >
+          <!-- Confirm password -->
+          <label for="confirm-password" class="block max-w-md text-sm text-gray-700 font-medium dark:text-gray-300">
+            确认密码
+          </label>
+          <input
+            id="confirm-password"
+            v-model="passwordform.confirmPassword"
+            type="password"
+            class="max-w-md border border-gray-300 rounded border-solid bg-gray-1 p-x-2 p-y-1 dark:border-dark-3 dark:bg-dark-5 focus:bg-white dark:text-white focus:outline-none dark:focus:border-indigo-600 dark:focus:bg-dark-4 dark:placeholder:text-gray-400"
+          >
+
+          <div>
+            <p
+              class="m-0 p-none text-sm text-gray-600 dark:text-gray-400"
+              :class="passwordMsgColor"
+            >
+              {{ passwordMsg[passwordState] }}
+            </p>
+            <button class="block max-w-md rounded border-none bg-purple-500 p-x-4 p-y-2 text-white hover:bg-purple-600" @click="updatePassword">
+              更新密码
+            </button>
+          </div>
         </div>
       </div>
     </div>

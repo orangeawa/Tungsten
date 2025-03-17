@@ -323,6 +323,7 @@
     "userSignup": true,
     "checkEmail": true,
     "changeUsername": true,
-    "changeDesc": true
+    "changeDesc": true,
+    "changePassword": true
   }
 }

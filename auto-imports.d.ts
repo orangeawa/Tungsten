@@ -14,6 +14,7 @@ declare global {
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const changeDesc: typeof import('./src/apis/userAuthManager')['changeDesc']
+  const changePassword: typeof import('./src/apis/userAuthManager')['changePassword']
   const changeUsername: typeof import('./src/apis/userAuthManager')['changeUsername']
   const checkEmail: typeof import('./src/apis/userAuthManager')['checkEmail']
   const checkUsername: typeof import('./src/apis/userAuthManager')['checkUsername']
@@ -334,6 +335,7 @@ declare module 'vue' {
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly changeDesc: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeDesc']>
+    readonly changePassword: UnwrapRef<typeof import('./src/apis/userAuthManager')['changePassword']>
     readonly changeUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeUsername']>
     readonly checkEmail: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkEmail']>
     readonly checkUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['checkUsername']>
