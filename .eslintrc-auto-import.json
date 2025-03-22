@@ -325,6 +325,7 @@
     "changeUsername": true,
     "changeDesc": true,
     "changePassword": true,
-    "useToast": true
+    "useToast": true,
+    "backTop": true
   }
 }

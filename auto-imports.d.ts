@@ -13,6 +13,7 @@ declare global {
   const a: typeof import('from')['a']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const backTop: typeof import('./src/utils/backTop')['backTop']
   const changeDesc: typeof import('./src/apis/userAuthManager')['changeDesc']
   const changePassword: typeof import('./src/apis/userAuthManager')['changePassword']
   const changeUsername: typeof import('./src/apis/userAuthManager')['changeUsername']
@@ -326,6 +327,7 @@ declare global {
   export type { Query, schema } from '@/graphql'
   import('@/graphql')
 }
+
 // for vue template auto import
 import { UnwrapRef } from 'vue'
 declare module 'vue' {
@@ -335,6 +337,7 @@ declare module 'vue' {
     readonly NProgress: UnwrapRef<typeof import('nprogress')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly backTop: UnwrapRef<typeof import('./src/utils/backTop')['backTop']>
     readonly changeDesc: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeDesc']>
     readonly changePassword: UnwrapRef<typeof import('./src/apis/userAuthManager')['changePassword']>
     readonly changeUsername: UnwrapRef<typeof import('./src/apis/userAuthManager')['changeUsername']>

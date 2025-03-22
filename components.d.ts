@@ -15,6 +15,7 @@ declare module 'vue' {
     LayoutNavTopSearch: typeof import('./src/components/Layout/LayoutNavTopSearch.vue')['default']
     LayoutNavTopUserHome: typeof import('./src/components/Layout/LayoutNavTopUserHome.vue')['default']
     Logo: typeof import('./src/components/common/Logo.vue')['default']
+    Pagination: typeof import('./src/components/common/Pagination.vue')['default']
     Popover: typeof import('./src/components/common/Popover.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
