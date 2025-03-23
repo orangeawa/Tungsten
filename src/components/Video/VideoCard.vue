@@ -1,9 +1,11 @@
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   video: schema.Video | boolean
-  // Minimum width, note the unit is rem, range 50~100, see in uno.config.ts
+  // Minimum width, note the unit is rem, range 1~100, see in uno.config.ts
   minWidth?: number
-}>()
+}>(), {
+  minWidth: 48,
+})
 
 const biliVideoPart = computed(() => {
   if (typeof props.video === 'boolean')
@@ -33,7 +35,7 @@ function formatTime(time: string) {
 </script>
 
 <template>
-  <div class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]" :class="props.minWidth && `w-${props.minWidth}`">
+  <div :class="props.minWidth && `w-${props.minWidth}`">
     <!-- UI Loading -->
     <div v-if="typeof props.video === 'boolean'" class="space-y-1">
       <div class="aspect-ratio-16/10 w-full rounded bg-gray-200 dark:bg-dark-200" />

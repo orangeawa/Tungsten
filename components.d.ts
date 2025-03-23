@@ -8,7 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Avatar: typeof import('./src/components/user/Avatar.vue')['default']
+    CoverLink: typeof import('./src/components/Playlist/CoverLink.vue')['default']
     DarkModeSwitch: typeof import('./src/components/Layout/DarkModeSwitch.vue')['default']
+    GridTitle: typeof import('./src/components/Playlist/GridTitle.vue')['default']
     LayoutFooter: typeof import('./src/components/Layout/LayoutFooter.vue')['default']
     LayoutNavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
     LayoutNavTopLink: typeof import('./src/components/Layout/LayoutNavTopLink.vue')['default']
@@ -16,6 +18,10 @@ declare module 'vue' {
     LayoutNavTopUserHome: typeof import('./src/components/Layout/LayoutNavTopUserHome.vue')['default']
     Logo: typeof import('./src/components/common/Logo.vue')['default']
     Pagination: typeof import('./src/components/common/Pagination.vue')['default']
+    PlaylistCoverLink: typeof import('./src/components/Playlist/PlaylistCoverLink.vue')['default']
+    PlaylistGrid: typeof import('./src/components/Playlist/PlaylistGrid.vue')['default']
+    PlaylistGridTitle: typeof import('./src/components/Playlist/PlaylistGridTitle.vue')['default']
+    PlaylistTitleLink: typeof import('./src/components/Playlist/PlaylistTitleLink.vue')['default']
     Popover: typeof import('./src/components/common/Popover.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
