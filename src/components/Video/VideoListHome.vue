@@ -60,7 +60,7 @@ watchEffect(() => {
     <p>错误: {{ error.message }}</p>
   </div>
   <div v-else class="flex flex-wrap -mx-2">
-    <VideoCard v-for="item in videoResult" :key="item" :video="item" class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]" />
+    <VideoCard v-for="item in videoResult" :key="item" :video="item" class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]" :min-width="0" />
   </div>
 </template>
 
