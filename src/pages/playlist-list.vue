@@ -2,7 +2,7 @@
 const route = useRoute()
 const router = useRouter()
 
-setSiteTitle('播放列表 - PatchyVideo')
+setSiteTitle('播放列表')
 
 const page = computed(() => Number(pickFirstQuery(route.query.page)) || 1)
 const limit = computed(() => Number(pickFirstQuery(route.query.limit)) || 20)
