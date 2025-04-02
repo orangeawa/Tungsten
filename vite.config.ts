@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import simpleGit from 'simple-git'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
@@ -72,7 +73,11 @@ export default defineConfig(async ({ mode }) => {
           enabled: true,
         },
       }),
-      Components({}),
+      Components({
+        resolvers: [
+          HeadlessUiResolver({ prefix: 'H' }),
+        ],
+      }),
       Layouts(),
     ],
   })
