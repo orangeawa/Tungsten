@@ -10,6 +10,17 @@ export default defineConfig({
       },
     }),
   ],
+  theme: {
+    colors: {
+      copyright: '#DFBFFF',
+      language: '#FFBFCF',
+      character: '#AAF2AA',
+      author: '#DDDDDD',
+      general: '#B2D9FF',
+      meta: '#FFDFBA',
+      soundtrack: '#AAF2EE',
+    },
+  },
   // https://unocss.dev/config/#safelist
   safelist: [
     ...Array.from({ length: 100 }, (_, i) => `w-${i + 1}`),

@@ -21,17 +21,6 @@ const biliVideoPartNeeded = computed(() => {
     return 0
   return props.video.item.partName && props.video.item.partName !== props.video.item.title && !props.video.item.partName?.match(/.mp4/)
 })
-
-function formatTime(time: string) {
-  const date = new Date(time)
-  return new Intl.DateTimeFormat('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date)
-}
 </script>
 
 <template>
@@ -44,12 +33,7 @@ function formatTime(time: string) {
     </div>
     <!-- UI Display video message -->
     <RouterLink v-else :to="`/video/${props.video.id}`" class="no-underline space-y-1">
-      <div class="aspect-ratio-16/10 w-full overflow-hidden rounded">
-        <img
-          :src="`https://patchyvideo.com/images/covers/${props.video.item.coverImage}`"
-          class="h-full w-full object-cover"
-        >
-      </div>
+      <VideoCover :video="props.video" class="rounded" />
       <div class="space-y-1">
         <div class="overflow-ellipsis text-gray-600 transition transition-colors dark:text-gray-400 hover:text-purple-600" :class="biliVideoPart && biliVideoPartNeeded ? 'h-4.5 md:h-6 line-clamp-1' : 'h-9 md:h-12 line-clamp-2'">
           {{ props.video.item.title }}
@@ -62,7 +46,7 @@ function formatTime(time: string) {
           {{ `P${biliVideoPart}: ${props.video.item.partName}` }}
         </div>
         <div class="flex items-center text-xs text-gray-500 space-x-2">
-          <VideoCardSiteIcon class="m-px h-4 w-4" :url="props.video.item.url" />
+          <VideoSiteIcon class="m-px h-4 w-4" :url="props.video.item.url" />
           <div>{{ formatTime(props.video.meta.createdAt) }}</div>
         </div>
       </div>

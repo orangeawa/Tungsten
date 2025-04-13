@@ -45,6 +45,7 @@ declare global {
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const extensionTweaks: typeof import('./src/utils/extension')['extensionTweaks']
   const extensions: typeof import('./src/utils/extension')['extensions']
+  const formatTime: typeof import('./src/utils/formatTime')['formatTime']
   const g: typeof import('from')['g']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -270,6 +271,7 @@ declare global {
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
   const useTextSelection: typeof import('@vueuse/core')['useTextSelection']
   const useTextareaAutosize: typeof import('@vueuse/core')['useTextareaAutosize']
+  const useThemeDarkCoverFilter: typeof import('./src/utils/settings')['useThemeDarkCoverFilter']
   const useThrottle: typeof import('@vueuse/core')['useThrottle']
   const useThrottleFn: typeof import('@vueuse/core')['useThrottleFn']
   const useThrottledRefHistory: typeof import('@vueuse/core')['useThrottledRefHistory']
@@ -369,6 +371,7 @@ declare module 'vue' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly extensionTweaks: UnwrapRef<typeof import('./src/utils/extension')['extensionTweaks']>
     readonly extensions: UnwrapRef<typeof import('./src/utils/extension')['extensions']>
+    readonly formatTime: UnwrapRef<typeof import('./src/utils/formatTime')['formatTime']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getSession: UnwrapRef<typeof import('./src/apis/userAuthManager')['getSession']>
@@ -588,6 +591,7 @@ declare module 'vue' {
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
     readonly useTextSelection: UnwrapRef<typeof import('@vueuse/core')['useTextSelection']>
     readonly useTextareaAutosize: UnwrapRef<typeof import('@vueuse/core')['useTextareaAutosize']>
+    readonly useThemeDarkCoverFilter: UnwrapRef<typeof import('./src/utils/settings')['useThemeDarkCoverFilter']>
     readonly useThrottle: UnwrapRef<typeof import('@vueuse/core')['useThrottle']>
     readonly useThrottleFn: UnwrapRef<typeof import('@vueuse/core')['useThrottleFn']>
     readonly useThrottledRefHistory: UnwrapRef<typeof import('@vueuse/core')['useThrottledRefHistory']>

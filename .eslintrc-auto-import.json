@@ -326,6 +326,8 @@
     "changeDesc": true,
     "changePassword": true,
     "useToast": true,
-    "backTop": true
+    "backTop": true,
+    "useThemeDarkCoverFilter": true,
+    "formatTime": true
   }
 }
