@@ -82,7 +82,16 @@ function updatePage(page: number) {
 
 <template>
   <div>
-    <EditHistoryGrid v-for="item in getRawTagHistory" :key="item.time" :item="item" />
+    <div v-if="loading">
+      加载中
+    </div>
+    <div v-else-if="error">
+      加载错误，原因：{{ error.message }}
+    </div>
+    <div v-else-if="!getRawTagHistory.length">
+      暂无数据
+    </div>
+    <EditHistoryGrid v-for="item in getRawTagHistory" v-else :key="item.time" :item="item" />
 
     <Pagination
       class="mt-4"

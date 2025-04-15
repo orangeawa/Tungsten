@@ -3,7 +3,7 @@ const props = defineProps<{
   dateRangeNumber: number
 }>()
 
-const { result, loading, error } = useQuery<Query>(
+const { result, fetchMore, loading, error } = useQuery<Query>(
   gql`
     query ($dateRangeNumber: Int!) {
       getLeaderboard(hrs: $dateRangeNumber, k: 30) {
@@ -24,6 +24,22 @@ const { result, loading, error } = useQuery<Query>(
   },
 )
 const getLeaderboard = computed(() => result.value?.getLeaderboard.items || [])
+
+function fetchLeaderboard(dateRangeNumber: number) {
+  fetchMore({
+    variables: {
+      dateRangeNumber,
+    },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult)
+        return prev
+      return fetchMoreResult
+    },
+  })
+}
+watch(() => props.dateRangeNumber, (newv) => {
+  fetchLeaderboard(newv)
+})
 </script>
 
 <template>
@@ -34,6 +50,9 @@ const getLeaderboard = computed(() => result.value?.getLeaderboard.items || [])
     <div v-else-if="error">
       加载错误，原因：{{ error.message }}
     </div>
-    <ContributorGrid v-for="(item, index) in getLeaderboard" :key="item.user.id" :item="item" :index="index + 1" />
+    <div v-else-if="!getLeaderboard.length">
+      暂无数据
+    </div>
+    <ContributorGrid v-for="(item, index) in getLeaderboard" v-else :key="item.user.id" :item="item" :index="index + 1" />
   </div>
 </template>
