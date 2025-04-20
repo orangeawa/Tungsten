@@ -22,6 +22,10 @@ const { result, fetchMore, loading, error } = useQuery<Query>(
   {
     dateRangeNumber: props.dateRangeNumber,
   },
+  {
+    fetchPolicy: 'cache-and-network',
+    notifyOnNetworkStatusChange: true,
+  },
 )
 const getLeaderboard = computed(() => result.value?.getLeaderboard.items || [])
 
@@ -39,6 +43,17 @@ function fetchLeaderboard(dateRangeNumber: number) {
 }
 watch(() => props.dateRangeNumber, (newv) => {
   fetchLeaderboard(newv)
+})
+
+watchEffect(() => {
+  if (loading.value) {
+    if (!NProgress.isStarted())
+      NProgress.start()
+  }
+  else {
+    if (NProgress.isStarted())
+      NProgress.done()
+  }
 })
 </script>
 

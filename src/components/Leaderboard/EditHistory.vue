@@ -54,6 +54,10 @@ const { result, fetchMore, loading, error } = useQuery<Query>(
     offset: (props.page - 1) * props.limit,
     limit: props.limit,
   },
+  {
+    fetchPolicy: 'cache-and-network',
+    notifyOnNetworkStatusChange: true,
+  },
 )
 const getRawTagHistory = computed(() => result.value?.getRawTagHistory.items || [])
 
@@ -72,6 +76,17 @@ function fetchMoreHistory(offset: number, limit: number) {
 }
 watch(() => [props.page, props.limit], ([newPage, newLimit]) => {
   fetchMoreHistory((newPage - 1) * newLimit, newLimit)
+})
+
+watchEffect(() => {
+  if (loading.value) {
+    if (!NProgress.isStarted())
+      NProgress.start()
+  }
+  else {
+    if (NProgress.isStarted())
+      NProgress.done()
+  }
 })
 
 function updatePage(page: number) {
