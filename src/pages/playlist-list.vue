@@ -57,6 +57,10 @@ const { result, fetchMore, loading, onError } = useQuery<Query>(
     qtype: '',
     order: order.value,
   },
+  {
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true,
+  },
 )
 const playlistCount = computed(() => result.value?.listPlaylist.count || 0)
 const playlistResult = computed(() => result.value?.listPlaylist.playlists || Array.from({ length: limit.value }).fill(loading.value))
@@ -76,6 +80,17 @@ watch(URLQuery, () => {
       return fetchMoreResult
     },
   })
+})
+
+watchEffect(() => {
+  if (loading.value) {
+    if (!NProgress.isStarted())
+      NProgress.start()
+  }
+  else {
+    if (NProgress.isStarted())
+      NProgress.done()
+  }
 })
 
 function updatePage(page: number) {
