@@ -25,10 +25,9 @@ const count = computed(() => typeof props.playlistData === 'boolean' ? 0 : props
     <div class="relative">
       <div class="flex overflow-auto space-x-2 md:pb-2">
         <!-- This div is used to set the width of VideoCard -->
-        <div v-for="(video, index) in videos" :key="index" class="flex-shrink-0 flex-grow-0 md:w-64">
+        <div v-for="(video, index) in videos" :key="index" class="w-48 flex-shrink-0 flex-grow-0 md:w-64">
           <VideoCard
-            class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
-            :min-width="0"
+            class="w-full"
             :video="video"
           />
         </div>

@@ -96,6 +96,7 @@ watch(offset, () => {
       <VideoCard
         v-for="video in videos"
         :key="video"
+        :min-width="0"
         class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
         :video="video"
       />
