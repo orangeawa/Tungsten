@@ -113,7 +113,7 @@ const linkList = computed(() => {
 
     <!-- Drawer -->
     <div
-      class="fixed bottom-0 top-16 flex transform transition-transform ease-in-out"
+      class="fixed bottom-0 top-16 z-49 flex transform transition-transform ease-in-out"
       :class="{ '-translate-x-full': !drawerOpen }"
     >
       <!-- Menu -->

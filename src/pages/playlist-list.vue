@@ -109,6 +109,7 @@ function updatePage(page: number) {
       <PlaylistGrid
         v-for="playlist in playlistResult"
         :key="playlist"
+        :min-width="0"
         :playlist-data="playlist"
       />
     </div>
