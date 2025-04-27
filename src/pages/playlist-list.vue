@@ -11,7 +11,7 @@ const order = computed(
 )
 const URLQuery = computed(() => route.query)
 
-const { result, fetchMore, loading, onError } = useQuery<Query>(
+const { result, fetchMore, loading } = useQuery<Query>(
   gql`
     query ($offset: Int!, $limit: Int!, $query: String!, $order: String!) {
       listPlaylist(
@@ -109,7 +109,6 @@ function updatePage(page: number) {
       <PlaylistGrid
         v-for="playlist in playlistResult"
         :key="playlist"
-        :min-width="0"
         :playlist-data="playlist"
       />
     </div>
