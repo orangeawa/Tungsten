@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isDark = useDark()
+const isDark = useDark({ disableTransition: false })
 const toggleDark = useToggle(isDark)
 </script>
 

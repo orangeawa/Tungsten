@@ -91,7 +91,7 @@ const linkList = computed(() => {
 <template>
   <div ref="navContainer">
     <div
-      class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white p-2 shadow shadow-purple-100 md:h-12 dark:bg-dark-600 dark:shadow-gray-600"
+      class="fixed inset-x-0 z-49 h-12 flex items-center justify-between bg-white p-2 shadow shadow-purple-100 transition-colors duration-300 ease-in-out md:h-12 dark:bg-dark-600 dark:shadow-gray-600"
     >
       <!-- Logo & Slide Button -->
       <div class="inline-flex flex-nowrap items-center space-x-2">
@@ -117,9 +117,9 @@ const linkList = computed(() => {
       :class="{ '-translate-x-full': !drawerOpen }"
     >
       <!-- Menu -->
-      <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg dark:bg-dark-600">
+      <div class="flex flex-col gap-1 overflow-y-auto bg-white px-2 pt-2 shadow-lg transition-colors duration-300 ease-in-out dark:bg-dark-600">
         <!-- LinkGroup -->
-        <div v-for="({ groupName, links }) in linkList" :key="groupName" class="space-y-1">
+        <div v-for="({ groupName, links }, i) in linkList" :key="groupName" class="space-y-1">
           <!-- Group name -->
           <div class="text-sm c-gray">
             {{ groupName }}
@@ -128,8 +128,12 @@ const linkList = computed(() => {
           <div class="flex flex-col gap-1">
             <!-- Link -->
             <LayoutNavTopLink
-              v-for="(link, i) in links" :key="link.name" :index="i" :drawer-open="drawerOpen"
+              v-for="(link, j) in links"
+              :key="link.name"
+              :index="i * 6 + j"
+              :drawer-open="drawerOpen"
               :data="link"
+              @click="drawerOpen = false"
             />
           </div>
         </div>

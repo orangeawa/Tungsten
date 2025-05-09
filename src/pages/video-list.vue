@@ -1,19 +1,40 @@
 <script lang="ts" setup>
-// tools
-function backTop(): void {
-  const top: number = document.body.scrollTop || document.documentElement.scrollTop
-  if (top > 0) {
-    window.requestAnimationFrame(backTop)
-    window.scrollTo(0, top - top / 5)
-  }
-}
+// ================ router ================
+const route = useRoute()
+const router = useRouter()
 
-// Defining request parameters
-const limit = ref(20)
-const offset = ref(0)
-const order = ref<'latest' | 'oldest' | 'video_latest' | 'video_oldest' | 'last_modified'>('latest')
+// ================ reactive parameters ================
+const limit = ref(Number(route.query.limit) || 20)
+const offset = ref(Number(route.query.offset) || 0)
+const order = ref<'latest' | 'oldest' | 'video_latest' | 'video_oldest' | 'last_modified'>(
+  (route.query.order as any) || 'latest',
+)
+const qtype = ref<'tag' | 'text'>((route.query.qtype as any) || 'tag')
+const q = ref<string>((route.query.q as any) || '')
 
-// Defining Requests
+// Watch for changes in the limit and update the URL
+watch(offset, () => {
+  router.replace({
+    query: {
+      ...route.query,
+      offset: offset.value,
+    },
+  })
+})
+watch(
+  () => route.query,
+  (query) => {
+    limit.value = Number(query.limit) || 20
+    offset.value = Number(query.offset) || 0
+    order.value = (query.order as any) || 'latest'
+    qtype.value = (query.qtype as any) || 'tag'
+    q.value = (query.q as any) || ''
+
+    fetchMoreVideos()
+  },
+)
+
+// ================ video request ================
 const { result, fetchMore, loading } = useQuery<Query>(gql`
   query ($offset: Int!, $limit: Int!, $query: String!, $qtype: String, $order: String!) {
     listVideo(para: {
@@ -43,20 +64,19 @@ const { result, fetchMore, loading } = useQuery<Query>(gql`
 `, {
   offset: offset.value,
   limit: limit.value,
-  query: '',
-  qtype: '',
+  query: q.value,
+  qtype: qtype.value,
   order: order.value,
 }, {
   notifyOnNetworkStatusChange: true,
 })
-// Encapsulate request method
 function fetchMoreVideos() {
   fetchMore({
     variables: {
       offset: offset.value,
       limit: limit.value,
-      query: '',
-      qtype: '',
+      query: q.value,
+      qtype: qtype.value,
       order: order.value,
     },
     updateQuery: (prev, { fetchMoreResult }) => {
@@ -66,10 +86,10 @@ function fetchMoreVideos() {
     },
   })
 }
-// Calculate video list
+/** videolist */
 const videos = computed(() => result.value?.listVideo.videos || Array.from({ length: limit.value }).fill(false))
 
-// Handle events
+// ================ loading event ================
 watch(loading, () => {
   if (loading.value) {
     if (!NProgress.isStarted())
@@ -80,7 +100,7 @@ watch(loading, () => {
       NProgress.done()
   }
 })
-watch(offset, () => {
+watch([offset, order], () => {
   backTop()
   fetchMoreVideos()
 })
@@ -89,6 +109,7 @@ watch(offset, () => {
 <template>
   <div class="mx-auto max-w-7xl dark:text-gray-400">
     <h1>视频列表</h1>
+    <AdvancedSearch />
     <div class="text-sm text-gray-500">
       共 {{ result?.listVideo.count }} 个视频
     </div>

@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AdvancedSearch: typeof import('./src/components/Videolist/AdvancedSearch.vue')['default']
     Avatar: typeof import('./src/components/user/Avatar.vue')['default']
     ContributorGrid: typeof import('./src/components/Leaderboard/ContributorGrid.vue')['default']
     ContributorLogo: typeof import('./src/components/Leaderboard/ContributorLogo.vue')['default']
@@ -19,6 +20,7 @@ declare module 'vue' {
     HListboxButton: typeof import('@headlessui/vue')['ListboxButton']
     HListboxOption: typeof import('@headlessui/vue')['ListboxOption']
     HListboxOptions: typeof import('@headlessui/vue')['ListboxOptions']
+    InputTag: typeof import('./src/components/common/InputTag.vue')['default']
     LayoutFooter: typeof import('./src/components/Layout/LayoutFooter.vue')['default']
     LayoutNavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
     LayoutNavTopLink: typeof import('./src/components/Layout/LayoutNavTopLink.vue')['default']
@@ -26,6 +28,8 @@ declare module 'vue' {
     LayoutNavTopUserHome: typeof import('./src/components/Layout/LayoutNavTopUserHome.vue')['default']
     Logo: typeof import('./src/components/common/Logo.vue')['default']
     Pagination: typeof import('./src/components/common/Pagination.vue')['default']
+    PInput: typeof import('./src/components/common/P-Input.vue')['default']
+    PInputTag: typeof import('./src/components/common/P-InputTag.vue')['default']
     PlaylistCoverLink: typeof import('./src/components/Playlist/PlaylistCoverLink.vue')['default']
     PlaylistGrid: typeof import('./src/components/Playlist/PlaylistGrid.vue')['default']
     PlaylistGridTitle: typeof import('./src/components/Playlist/PlaylistGridTitle.vue')['default']
