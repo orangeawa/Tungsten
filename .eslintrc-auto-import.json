@@ -328,6 +328,7 @@
     "useToast": true,
     "backTop": true,
     "useThemeDarkCoverFilter": true,
-    "formatTime": true
+    "formatTime": true,
+    "useLazyQuery": true
   }
 }

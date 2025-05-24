@@ -28,8 +28,6 @@ export const useUserStore = defineStore('user', () => {
    */
   async function refetch() {
     auth.value = await refetchProfile()
-    // eslint-disable-next-line no-console
-    console.log('auth', auth.value)
   }
 
   refetch()

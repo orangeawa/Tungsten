@@ -60,7 +60,7 @@ const optionsLeft = computed(() => rootPos.left.value)
                 as="template"
               >
                 <span
-                  class="block cursor-pointer select-none whitespace-nowrap rounded-md px-4 py-1 transition transition-colors"
+                  class="block cursor-pointer select-none whitespace-nowrap rounded-md px-4 py-1 transition transition-colors dark:text-gray-200"
                   :class="[selected ? 'font-medium' : 'font-normal', active && 'bg-purple-100 dark:bg-gray-700']"
                 >
                   {{ op.name }}

@@ -20,7 +20,7 @@ declare module 'vue' {
     HListboxButton: typeof import('@headlessui/vue')['ListboxButton']
     HListboxOption: typeof import('@headlessui/vue')['ListboxOption']
     HListboxOptions: typeof import('@headlessui/vue')['ListboxOptions']
-    InputTag: typeof import('./src/components/common/InputTag.vue')['default']
+    HSwitch: typeof import('@headlessui/vue')['Switch']
     LayoutFooter: typeof import('./src/components/Layout/LayoutFooter.vue')['default']
     LayoutNavTop: typeof import('./src/components/Layout/LayoutNavTop.vue')['default']
     LayoutNavTopLink: typeof import('./src/components/Layout/LayoutNavTopLink.vue')['default']
@@ -28,7 +28,7 @@ declare module 'vue' {
     LayoutNavTopUserHome: typeof import('./src/components/Layout/LayoutNavTopUserHome.vue')['default']
     Logo: typeof import('./src/components/common/Logo.vue')['default']
     Pagination: typeof import('./src/components/common/Pagination.vue')['default']
-    PInput: typeof import('./src/components/common/P-Input.vue')['default']
+    PInputNumber: typeof import('./src/components/common/P-InputNumber.vue')['default']
     PInputTag: typeof import('./src/components/common/P-InputTag.vue')['default']
     PlaylistCoverLink: typeof import('./src/components/Playlist/PlaylistCoverLink.vue')['default']
     PlaylistGrid: typeof import('./src/components/Playlist/PlaylistGrid.vue')['default']
@@ -42,7 +42,6 @@ declare module 'vue' {
     VideoCard: typeof import('./src/components/Video/VideoCard.vue')['default']
     VideoCover: typeof import('./src/components/Video/VideoCover.vue')['default']
     VideoListHome: typeof import('./src/components/Video/VideoListHome.vue')['default']
-    VideoPagination: typeof import('./src/components/Video/VideoPagination.vue')['default']
     VideoSiteIcon: typeof import('./src/components/Video/VideoSiteIcon.vue')['default']
   }
 }

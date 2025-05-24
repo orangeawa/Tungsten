@@ -1,5 +1,6 @@
 import type { PluginOptions } from 'vue-toastification'
 import { DefaultApolloClient } from '@vue/apollo-composable'
+import VueDatePicker from '@vuepic/vue-datepicker'
 import { createPinia } from 'pinia'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createApp } from 'vue'
@@ -13,6 +14,7 @@ import 'vue-toastification/dist/index.css'
 import 'nprogress/nprogress.css'
 import 'virtual:uno.css'
 import '@/css'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 NProgress.start()
 
@@ -40,6 +42,7 @@ const ToastOptions: PluginOptions = {
 }
 
 createApp(RootComponent)
+  .component('VueDatePicker', VueDatePicker)
   .use(router)
   .use(pinia)
   .use(Toast, ToastOptions)
