@@ -37,7 +37,7 @@ watch(page, () => {
 })
 
 // ================ video request ================
-const { load, refetch, loading, result } = useLazyQuery<Query>(gql`
+const { load, loading, result } = useLazyQuery<Query>(gql`
   query ($offset: Int!, $limit: Int!, $query: String!, $qtype: String, $order: String!) {
     listVideo(para: {
       offset: $offset

@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-interface UserStore {
+export interface UserStore {
   profile: {
     uid: string
     username: string
