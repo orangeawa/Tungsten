@@ -5,6 +5,10 @@ const userStore = useUserStore()
 const { auth } = storeToRefs(userStore)
 
 const uid = computed(() => auth.value?.profile.uid)
+
+function logout() {
+  userStore.logout()
+}
 </script>
 
 <template>
@@ -43,11 +47,11 @@ const uid = computed(() => auth.value?.profile.uid)
             个人中心
           </div>
         </RouterLink>
-        <RouterLink :to="`/user/${uid}`" class="text-base no-underline">
+        <a class="cursor-pointer text-base no-underline" @click="logout">
           <div class="w-auto whitespace-nowrap border-b b-b-blue border-solid border-l-none border-r-none border-t-none p-2">
-            个人中心
+            退出登录
           </div>
-        </RouterLink>
+        </a>
       </template>
     </Popover>
   </div>

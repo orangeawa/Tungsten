@@ -30,11 +30,17 @@ export const useUserStore = defineStore('user', () => {
     auth.value = await refetchProfile()
   }
 
+  function logout() {
+    userLogout()
+    auth.value = null
+  }
+
   refetch()
 
   return {
     auth,
     refetch,
+    logout,
   }
 })
 

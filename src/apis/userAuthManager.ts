@@ -35,3 +35,7 @@ export function changeDesc(desc: string) {
 export function changePassword(old_pass: string, new_pass: string) {
   return request('/user/changepass.do', { old_pass, new_pass })
 }
+
+export function userLogout() {
+  return request('/logout.do')
+}
