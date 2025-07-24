@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute('/Playlist/[pid]')
 const pid = computed(() => route.params.pid as string)
+const router = useRouter()
 
 setSiteTitle('播放列表详情')
 
@@ -79,12 +80,43 @@ watch(
     }
   },
 )
+function fetchMoreVideos() {
+  fetchMore({
+    variables: {
+      offset: (page.value - 1) * limit.value,
+      limit: limit.value,
+    },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult)
+        return prev
+      return fetchMoreResult
+    },
+  })
+}
+watch([page, limit], () => {
+  fetchMoreVideos()
+})
+
+watchEffect(() => {
+  if (loading.value) {
+    if (!NProgress.isStarted())
+      NProgress.start()
+  }
+  else {
+    if (NProgress.isStarted())
+      NProgress.done()
+  }
+})
+
+function updatePage(page: number) {
+  backTop()
+  router.push({ query: { ...route.query, page } })
+}
 </script>
 
 <template>
-  <div class="space-y-5">
+  <div v-if="getPlaylist" class="space-y-5">
     <playlist-meta
-      v-if="getPlaylist"
       :pid="pid"
       :title="getPlaylist.item.title"
       :private="getPlaylist.item.private"
@@ -94,5 +126,32 @@ watch(
       :cover="getPlaylist.item.cover"
       :desc="getPlaylist.item.desc"
     />
+
+    <!-- Divide -->
+    <div class="w-full bg-purple-100 md:h-0.2" />
+
+    <div class="flex flex-wrap justify-center">
+      <VideoCard
+        v-for="(video, index) in getPlaylist.videos" :key="video.id"
+        class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
+        :min-width="0"
+        :video="video"
+        :video-index="((page - 1) * limit) + (index + 1)"
+      />
+    </div>
+
+    <Pagination
+      :current-page="page"
+      :total="Math.ceil(getPlaylist.item.count / limit)"
+      @update-current-page="updatePage"
+    />
+
+    <CommentList
+      :tid="getPlaylist.commentThread?.id"
+      class="mt-5"
+    />
+  </div>
+  <div v-else-if="error">
+    加载错误，原因：{{ error.message }}
   </div>
 </template>

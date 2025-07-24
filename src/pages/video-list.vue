@@ -115,8 +115,9 @@ watch(loading, () => {
         v-for="(video, index) in videos"
         :key="video ? video.id : index"
         :min-width="0"
-        class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
         :video="video"
+        :video-index="((page - 1) * limit) + (index + 1)"
+        class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
       />
     </div>
 

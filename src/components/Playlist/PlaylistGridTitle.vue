@@ -20,13 +20,13 @@ defineProps<{
       <PlaylistTitleLink :name="name" :title-links-to="titleLinksTo" />
     </div>
 
-    <div v-if="author" class="flex items-center space-x-2">
-      <div class="rounded bg-purple-300 px-1 text-xs text-white">
-        上传者
-      </div>
-      <RouterLink :to="`/user/${author.id}`" class="text-sm">
-        {{ author.username }}
-      </RouterLink>
-    </div>
+    <UserMeta
+      v-if="author"
+      :id="author.id"
+      :username="author.username"
+      small-size
+      :image="author.image"
+      :gravatar="author.gravatar"
+    />
   </div>
 </template>
