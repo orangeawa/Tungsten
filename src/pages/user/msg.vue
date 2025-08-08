@@ -39,6 +39,11 @@ const { result, loading, refetch } = useQuery<Query>(gql`
             image
           }
         }
+        ... on SystemNotificationObject {
+          content
+          relatedLink
+          title
+        }
       }
     }
   }

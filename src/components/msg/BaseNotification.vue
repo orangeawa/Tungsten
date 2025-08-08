@@ -7,10 +7,10 @@ defineProps<{
 <template>
   <div class="border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-dark-100">
     <div class="font-bold">
-      {{ note }}
+      {{ note.type }}
     </div>
-    <div class="text-sm text-gray-700">
-      {{ note }}
+    <div class="text-sm text-gray-600 dark:text-gray-200">
+      {{ note.read ? '已读' : '未读' }}
     </div>
     <div class="text-xs text-gray-400">
       {{ note.time }}
