@@ -31,8 +31,9 @@ const plugin: PluginFunction<Config> = async (schema: GraphQLSchema, _, config: 
             .filter(isScalarWithTypePolicy)
             .map((field) => {
               let type = field.type
-              if (isNonNullType(type))
+              while ('ofType' in type) {
                 type = type.ofType
+              }
               return code`${field.name}: ${toImp(scalarTypePolicies[type.name])},`
             })} } },`
         })}
