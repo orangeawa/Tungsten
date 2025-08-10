@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  video: schema.Video | boolean
+  video: schema.Video | null
   // Minimum width, note the unit is rem, range 1~100, see in uno.config.ts
   minWidth?: number
   videoIndex?: number
@@ -9,25 +9,31 @@ const props = withDefaults(defineProps<{
 })
 
 const biliVideoPart = computed(() => {
-  if (typeof props.video === 'boolean')
+  if (!props.video) {
     return 0
-  const url = new URL(props.video.item.url)
-  const searchParams = new URLSearchParams(url.search)
-  return Number(searchParams.get('p')) || 0
+  }
+  else {
+    const url = new URL(props.video.item.url)
+    const searchParams = new URLSearchParams(url.search)
+    return Number(searchParams.get('p')) || 0
+  }
 })
 
 // If part needed to show (when partname is same as title, partname has no meaning, etc.)
 const biliVideoPartNeeded = computed(() => {
-  if (typeof props.video === 'boolean')
+  if (!props.video) {
     return 0
-  return props.video.item.partName && props.video.item.partName !== props.video.item.title && !props.video.item.partName?.match(/.mp4/)
+  }
+  else {
+    return props.video.item.partName && props.video.item.partName !== props.video.item.title && !props.video.item.partName?.match(/.mp4/)
+  }
 })
 </script>
 
 <template>
   <div :class="props.minWidth && `w-${props.minWidth}`">
     <!-- UI Loading -->
-    <div v-if="typeof props.video === 'boolean'" class="space-y-1">
+    <div v-if="!props.video" class="space-y-1">
       <div class="aspect-ratio-16/10 w-full rounded bg-gray-200 dark:bg-dark-200" />
       <div class="h-9 w-full rounded bg-gray-200 md:h-12 dark:bg-dark-200" />
       <div class="h-4 w-full rounded bg-gray-200 dark:bg-dark-200" />

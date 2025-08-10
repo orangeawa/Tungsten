@@ -86,7 +86,7 @@ function handleQChange(query: QueryParams) {
   fetchVideos()
 }
 /** videolist */
-const videos = computed<false[] | globalThis.schema.Video[]>(() => result.value?.listVideo.videos ?? Array.from<false>({ length: limit.value }).fill(false))
+const videos = computed<null[] | globalThis.schema.Video[]>(() => result.value?.listVideo.videos ?? Array.from<null>({ length: limit.value }).fill(null))
 
 // ================ loading event ================
 watch(loading, () => {
@@ -117,7 +117,6 @@ watch(loading, () => {
         :key="video ? video.id : index"
         :min-width="0"
         :video="video"
-        :video-index="((page - 1) * limit) + (index + 1)"
         class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
       />
     </div>

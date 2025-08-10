@@ -63,7 +63,7 @@ const { result, fetchMore, loading } = useQuery<Query>(
   },
 )
 const playlistCount = computed(() => result.value?.listPlaylist.count || 0)
-const playlistResult = computed(() => result.value?.listPlaylist.playlists || Array.from({ length: limit.value }).fill(loading.value))
+const playlistResult = computed<null[] | globalThis.schema.Playlist[]>(() => result.value?.listPlaylist.playlists || Array.from<null>({ length: limit.value }).fill(null))
 
 watch(URLQuery, () => {
   fetchMore({

@@ -1,15 +1,15 @@
 <!-- Single playlist display in playlist-list page -->
 <script lang="ts" setup>
 const props = defineProps<{
-  playlistData: schema.Playlist | boolean
+  playlistData: schema.Playlist | null
 }>()
-const name = computed(() => typeof props.playlistData === 'boolean' ? '' : props.playlistData.item.title)
-const titleLinksTo = computed(() => typeof props.playlistData === 'boolean' ? '' : `/playlist/${props.playlistData.id}`)
-const isPrivate = computed(() => typeof props.playlistData === 'boolean' ? false : props.playlistData.item.private)
-const author = computed(() => typeof props.playlistData === 'boolean' ? undefined : props.playlistData.meta.createdBy)
-const videos = computed(() => typeof props.playlistData === 'boolean' ? Array.from({ length: 6 }).fill(false) : props.playlistData.videos)
-const cover = computed(() => typeof props.playlistData === 'boolean' ? '' : props.playlistData.item.cover)
-const count = computed(() => typeof props.playlistData === 'boolean' ? 0 : props.playlistData.item.count)
+const name = computed(() => props.playlistData ? props.playlistData.item.title : '')
+const titleLinksTo = computed(() => props.playlistData ? `/playlist/${props.playlistData.id}` : '')
+const isPrivate = computed(() => props.playlistData ? props.playlistData.item.private : false)
+const author = computed(() => props.playlistData ? props.playlistData.meta.createdBy : undefined)
+const videos = computed(() => props.playlistData ? props.playlistData.videos : Array.from({ length: 6 }).fill(null))
+const cover = computed(() => props.playlistData ? props.playlistData.item.cover : '')
+const count = computed(() => props.playlistData ? props.playlistData.item.count : 0)
 </script>
 
 <template>
