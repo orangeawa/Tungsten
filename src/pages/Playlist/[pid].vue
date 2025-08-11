@@ -72,6 +72,18 @@ const { result, fetchMore, loading, error } = useQuery<Query>(
   },
 )
 const getPlaylist = computed(() => result.value?.getPlaylist)
+const videos = computed<null[] | globalThis.schema.Video[]>(() => getPlaylist.value?.videos || Array.from<null>({ length: limit.value }).fill(null))
+const meta = computed(() => getPlaylist.value
+  ? {
+      title: getPlaylist.value.item.title,
+      private: getPlaylist.value.item.private,
+      author: getPlaylist.value.meta.createdBy,
+      tags: getPlaylist.value.tags,
+      rating: getPlaylist.value.rating,
+      cover: getPlaylist.value.item.cover,
+      desc: getPlaylist.value.item.desc,
+    }
+  : null)
 watch(
   getPlaylist,
   (newVal) => {
@@ -115,43 +127,40 @@ function updatePage(page: number) {
 </script>
 
 <template>
-  <div v-if="getPlaylist" class="space-y-5">
-    <playlist-meta
-      :pid="pid"
-      :title="getPlaylist.item.title"
-      :private="getPlaylist.item.private"
-      :author="getPlaylist.meta.createdBy"
-      :tags="getPlaylist.tags"
-      :rating="getPlaylist.rating"
-      :cover="getPlaylist.item.cover"
-      :desc="getPlaylist.item.desc"
-    />
+  <div>
+    <div v-if="error">
+      加载错误，原因：{{ error.message }}
+    </div>
+    <div v-else class="space-y-5">
+      <playlist-meta
+        :meta="meta"
+      />
 
-    <!-- Divide -->
-    <div class="w-full bg-purple-100 md:h-0.2" />
+      <!-- Divider -->
+      <div class="w-full bg-purple-100 md:h-0.2" />
 
-    <div class="flex flex-wrap justify-center">
-      <VideoCard
-        v-for="(video, index) in getPlaylist.videos" :key="video.id"
-        class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
-        :min-width="0"
-        :video="video"
-        :video-index="((page - 1) * limit) + (index + 1)"
+      <div class="flex flex-wrap justify-center">
+        <VideoCard
+          v-for="(video, index) in videos" :key="video?.id || index"
+          class="m-2 w-[calc(50%-1rem)] md:w-[calc(20%-1rem)]"
+          :min-width="0"
+          :video="video"
+          :video-index="((page - 1) * limit) + (index + 1)"
+        />
+      </div>
+
+      <Pagination
+        v-if="getPlaylist"
+        :current-page="page"
+        :total="Math.ceil(getPlaylist.item.count / limit)"
+        @update-current-page="updatePage"
+      />
+
+      <CommentList
+        v-if="getPlaylist"
+        :tid="getPlaylist.commentThread?.id"
+        class="mt-5"
       />
     </div>
-
-    <Pagination
-      :current-page="page"
-      :total="Math.ceil(getPlaylist.item.count / limit)"
-      @update-current-page="updatePage"
-    />
-
-    <CommentList
-      :tid="getPlaylist.commentThread?.id"
-      class="mt-5"
-    />
-  </div>
-  <div v-else-if="error">
-    加载错误，原因：{{ error.message }}
   </div>
 </template>

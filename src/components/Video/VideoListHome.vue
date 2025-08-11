@@ -39,7 +39,7 @@ const { result, loading, error } = useQuery<Query>(gql`
   limit: config.value.limit,
 })
 
-const videoResult = computed<null[] | globalThis.schema.Video[]>(() => result.value?.listVideo.videos || Array.from<null>({ length: 10 }).fill(null))
+const videoResult = computed<null[] | globalThis.schema.Video[]>(() => result.value?.listVideo.videos || Array.from<null>({ length: config.value.limit }).fill(null))
 watchEffect(() => {
   if (loading.value) {
     if (!NProgress.isStarted())
