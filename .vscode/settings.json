@@ -110,5 +110,14 @@
 
   // Disable auto imports, for auto-import plugin has installed
   "typescript.suggest.autoImports": false,
-  "javascript.suggest.autoImports": false
+  "javascript.suggest.autoImports": false,
+
+  // ESLint configuration
+  "eslint.options": {
+    "overrideConfigFile": "./eslint.config.js"
+  },
+  "eslint.workingDirectories": [
+    "./"
+  ],
+  "eslint.runtime": "node"
 }
