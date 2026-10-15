@@ -58,6 +58,12 @@ const links = computed<
       { key: 'Twitter', href: 'https://twitter.com/PatchyVideo' },
     ],
   },
+  {
+    key: '友情链接',
+    links: [
+      { key: '东方图书馆', href: 'https://www.touhou.date/' },
+    ],
+  },
 ])
 
 /* typed.js */
